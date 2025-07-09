@@ -54,6 +54,16 @@ export function useFlashcards() {
     );
   };
 
+  const addCard=(question:string,answer:string)=>{
+    const newCard: Flashcard={
+        id:crypto.randomUUID(),
+        question,
+        answer,
+        isLearned:false
+    };
+    setCards((cardsArray)=>[...cardsArray,newCard]);
+  }
+
   return {
     cards,
     currentCard,
@@ -61,5 +71,6 @@ export function useFlashcards() {
     moveNextHandler,
     movePreviousHandler,
     markAsLearnedHandler,
+    addCard
   };
 }

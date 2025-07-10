@@ -51,7 +51,7 @@ export function useFlashcards() {
       }finally{
         setLoading(false);
       }
-    }, 500);
+    }, 1000);
   }, []);
 
   useEffect(() => {

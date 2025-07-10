@@ -4,6 +4,7 @@ import ProgressStats from "./components/ProgressStats";
 import NavigationControls from "./components/NavigationControls";
 import { useFlashcards } from "./hooks/useFlashcards";
 import AddFlashcardForm from "./components/AddFlashcardForm";
+import LoadingIndicator from "./components/LoadingIndicator";
 
 function App() {
   const {
@@ -18,8 +19,8 @@ function App() {
   } = useFlashcards();
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center p-4">
-        <p className="text-gray-500 text-xl">Loading flashcards...</p>
+      <div className="min-h-screen flex items-center justify-center bg-gray-100">
+        <LoadingIndicator/>
       </div>
     );
   }

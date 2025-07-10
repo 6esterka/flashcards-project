@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import type { Flashcard } from "../types/flashcard";
+
+const STORAGE_KEY = "ai-flashcards";
 
 const initialCards: Flashcard[] = [
   {
@@ -29,8 +31,34 @@ const initialCards: Flashcard[] = [
 ];
 
 export function useFlashcards() {
-  const [cards, setCards] = useState<Flashcard[]>(initialCards);
+  const [cards, setCards] = useState<Flashcard[]>([]);
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      try {
+        const stored = localStorage.getItem(STORAGE_KEY);
+        if (stored) {
+          const parsed: Flashcard[] = JSON.parse(stored);
+          setCards(parsed);
+        } else {
+          setCards(initialCards);
+        }
+      } catch (err) {
+        console.error("Error during reading the local storage", err);
+        setCards(initialCards);
+      }finally{
+        setLoading(false);
+      }
+    }, 500);
+  }, []);
+
+  useEffect(() => {
+    if (!loading) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(cards));
+    }
+  }, [cards, loading]);
 
   const currentCard = cards[currentCardIndex];
 
@@ -54,15 +82,15 @@ export function useFlashcards() {
     );
   };
 
-  const addCard=(question:string,answer:string)=>{
-    const newCard: Flashcard={
-        id:crypto.randomUUID(),
-        question,
-        answer,
-        isLearned:false
+  const addCard = (question: string, answer: string) => {
+    const newCard: Flashcard = {
+      id: crypto.randomUUID(),
+      question,
+      answer,
+      isLearned: false,
     };
-    setCards((cardsArray)=>[...cardsArray,newCard]);
-  }
+    setCards((cardsArray) => [...cardsArray, newCard]);
+  };
 
   return {
     cards,
@@ -71,6 +99,7 @@ export function useFlashcards() {
     moveNextHandler,
     movePreviousHandler,
     markAsLearnedHandler,
-    addCard
+    addCard,
+    loading,
   };
 }

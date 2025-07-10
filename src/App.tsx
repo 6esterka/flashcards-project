@@ -5,9 +5,25 @@ import NavigationControls from "./components/NavigationControls";
 import { useFlashcards } from "./hooks/useFlashcards";
 import AddFlashcardForm from "./components/AddFlashcardForm";
 
-
 function App() {
-  const{cards,currentCard,currentCardIndex,moveNextHandler,movePreviousHandler,markAsLearnedHandler,addCard} = useFlashcards();
+  const {
+    cards,
+    currentCard,
+    currentCardIndex,
+    moveNextHandler,
+    movePreviousHandler,
+    markAsLearnedHandler,
+    addCard,
+    loading,
+  } = useFlashcards();
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center p-4">
+        <p className="text-gray-500 text-xl">Loading flashcards...</p>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center">
       <FlashcardComponent card={currentCard} />
@@ -19,7 +35,7 @@ function App() {
         onMarkAsLearned={markAsLearnedHandler}
       />
       <ProgressStats cards={cards} />
-      <AddFlashcardForm onAddFlashcard={addCard}/>
+      <AddFlashcardForm onAddFlashcard={addCard} />
     </div>
   );
 }

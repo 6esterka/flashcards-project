@@ -75,8 +75,8 @@ export function useFlashcards() {
   };
 
   const markAsLearnedHandler = () => {
-    setCards((prevCards) =>
-      prevCards.map((card, index) =>
+    setCards((cardsArray) =>
+      cardsArray.map((card, index) =>
         index === currentCardIndex ? { ...card, isLearned: true } : card
       )
     );
@@ -92,6 +92,10 @@ export function useFlashcards() {
     setCards((cardsArray) => [...cardsArray, newCard]);
   };
 
+  const deleteCard=(id:string)=>{
+    setCards((cardsArray)=>cardsArray.filter(card=>card.id!==id))
+  }
+
   return {
     cards,
     currentCard,
@@ -100,6 +104,7 @@ export function useFlashcards() {
     movePreviousHandler,
     markAsLearnedHandler,
     addCard,
+    deleteCard,
     loading,
   };
 }

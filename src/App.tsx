@@ -15,6 +15,7 @@ function App() {
     movePreviousHandler,
     markAsLearnedHandler,
     addCard,
+    deleteCard,
     loading,
   } = useFlashcards();
   if (loading) {
@@ -27,7 +28,7 @@ function App() {
 
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center">
-      <FlashcardComponent card={currentCard} />
+      <FlashcardComponent card={currentCard} onDelete={deleteCard}/>
       <NavigationControls
         currentIndex={currentCardIndex}
         cards={cards}

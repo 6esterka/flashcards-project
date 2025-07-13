@@ -107,12 +107,7 @@ export function useFlashcards() {
         return newCards;
       });
       setPendingDeleteId(null);
-      // setCards(cardsArray=>cardsArray.filter(card=>card.id!==id));
-      // setPendingDeleteId(null);
-      // const newIndex = Math.min(currentCardIndex, newCards.length - 1);
-      // setCurrentCardIndex(newIndex >= 0 ? newIndex : 0);
     },300);
-    // setCards((cardsArray)=>cardsArray.filter(card=>card.id!==id))
   }
 
   return {

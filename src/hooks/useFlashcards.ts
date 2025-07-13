@@ -34,6 +34,7 @@ export function useFlashcards() {
   const [cards, setCards] = useState<Flashcard[]>([]);
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [pendingDeleteId,setPendingDeleteId]=useState<string|null>(null);
 
   useEffect(() => {
     setTimeout(() => {
@@ -92,8 +93,26 @@ export function useFlashcards() {
     setCards((cardsArray) => [...cardsArray, newCard]);
   };
 
-  const deleteCard=(id:string)=>{
-    setCards((cardsArray)=>cardsArray.filter(card=>card.id!==id))
+  const requestDeleteCard=(id:string)=>{
+    setPendingDeleteId(id);
+
+    setTimeout(()=>{
+      setCards((cardsArray)=>{
+        const newCards=cardsArray.filter((card)=>card.id!==id);
+        //Keep this const if you would like to set change index logic during deleting card
+        const deleteCardIndex=cardsArray.findIndex((card)=>card.id===id);
+
+        const newIndex=Math.min(currentCardIndex,newCards.length-1);
+        setCurrentCardIndex(newIndex>=0?newIndex:0);
+        return newCards;
+      });
+      setPendingDeleteId(null);
+      // setCards(cardsArray=>cardsArray.filter(card=>card.id!==id));
+      // setPendingDeleteId(null);
+      // const newIndex = Math.min(currentCardIndex, newCards.length - 1);
+      // setCurrentCardIndex(newIndex >= 0 ? newIndex : 0);
+    },300);
+    // setCards((cardsArray)=>cardsArray.filter(card=>card.id!==id))
   }
 
   return {
@@ -104,7 +123,8 @@ export function useFlashcards() {
     movePreviousHandler,
     markAsLearnedHandler,
     addCard,
-    deleteCard,
+    requestDeleteCard,
+    pendingDeleteId,
     loading,
   };
 }

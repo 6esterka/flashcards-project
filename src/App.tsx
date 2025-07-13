@@ -5,6 +5,7 @@ import NavigationControls from "./components/NavigationControls";
 import { useFlashcards } from "./hooks/useFlashcards";
 import AddFlashcardForm from "./components/AddFlashcardForm";
 import LoadingIndicator from "./components/LoadingIndicator";
+import NoFlashcardIndicator from "./components/NoFlashcardComponent";
 
 function App() {
   const {
@@ -15,8 +16,9 @@ function App() {
     movePreviousHandler,
     markAsLearnedHandler,
     addCard,
-    deleteCard,
-    loading,
+    requestDeleteCard,
+    pendingDeleteId,
+    loading
   } = useFlashcards();
   if (loading) {
     return (
@@ -28,7 +30,11 @@ function App() {
 
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center">
-      <FlashcardComponent card={currentCard} onDelete={deleteCard}/>
+      {cards.length === 0 ? (
+        <NoFlashcardIndicator/>
+      ) : (
+        <FlashcardComponent card={currentCard} onDelete={requestDeleteCard} isBeingDeleted={pendingDeleteId} />
+      )}
       <NavigationControls
         currentIndex={currentCardIndex}
         cards={cards}

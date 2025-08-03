@@ -35,6 +35,7 @@ export function useFlashcards() {
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
   const [loading, setLoading] = useState(true);
   const [pendingDeleteId,setPendingDeleteId]=useState<string|null>(null);
+  const [editingCardId,setEditingCardId]=useState<string|null>(null);
 
   useEffect(() => {
     setTimeout(() => {
@@ -110,6 +111,16 @@ export function useFlashcards() {
     },300);
   }
 
+  const updateCard=(id:string,updatedFields:Partial<Flashcard>)=>{
+    setCards((cardsArray) =>
+      cardsArray.map((card) =>
+        card.id === id ? {...card,...updatedFields} : card
+      )
+    );
+    setEditingCardId(null);
+  }
+  const cardToEdit = cards.find((card) => card.id === editingCardId);
+
   return {
     cards,
     currentCard,
@@ -121,5 +132,9 @@ export function useFlashcards() {
     requestDeleteCard,
     pendingDeleteId,
     loading,
+    setEditingCardId,
+    editingCardId,
+    updateCard,
+    cardToEdit
   };
 }

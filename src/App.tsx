@@ -6,6 +6,8 @@ import { useFlashcards } from "./hooks/useFlashcards";
 import AddFlashcardForm from "./components/AddFlashcardForm";
 import LoadingIndicator from "./components/LoadingIndicator";
 import NoFlashcardIndicator from "./components/NoFlashcardComponent";
+import EditFlashcardModal from "./components/EditFlashcardModal";
+import type { Flashcard } from "./types/flashcard";
 
 function App() {
   const {
@@ -18,12 +20,16 @@ function App() {
     addCard,
     requestDeleteCard,
     pendingDeleteId,
-    loading
+    loading,
+    setEditingCardId,
+    editingCardId,
+    updateCard,
+    cardToEdit
   } = useFlashcards();
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-100">
-        <LoadingIndicator/>
+        <LoadingIndicator />
       </div>
     );
   }
@@ -31,9 +37,14 @@ function App() {
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center">
       {cards.length === 0 ? (
-        <NoFlashcardIndicator/>
+        <NoFlashcardIndicator />
       ) : (
-        <FlashcardComponent card={currentCard} onDelete={requestDeleteCard} isBeingDeleted={pendingDeleteId} />
+        <FlashcardComponent
+          card={currentCard}
+          onDelete={requestDeleteCard}
+          isBeingDeleted={pendingDeleteId}
+          onEdit={() => setEditingCardId(currentCard.id)}
+        />
       )}
       <NavigationControls
         currentIndex={currentCardIndex}
@@ -44,6 +55,16 @@ function App() {
       />
       <ProgressStats cards={cards} />
       <AddFlashcardForm onAddFlashcard={addCard} />
+      {editingCardId && (
+        <EditFlashcardModal
+          onClose={() => setEditingCardId(null)}
+          editFlashcard={cardToEdit!}
+          onSave={(id:string,updatedFields:Partial<Flashcard>)=>{
+            updateCard(id,updatedFields);
+            setEditingCardId(null);
+          }}
+        />
+      )}
     </div>
   );
 }

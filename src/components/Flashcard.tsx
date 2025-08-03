@@ -7,9 +7,10 @@ interface FlashcardProps {
   card: Flashcard;
   onDelete: (id: string) => void;
   isBeingDeleted:string|null;
+  onEdit:()=> void;
 }
 
-const FlashcardComponent: React.FC<FlashcardProps> = ({ card, onDelete,isBeingDeleted }) => {
+const FlashcardComponent: React.FC<FlashcardProps> = ({ card, onDelete,isBeingDeleted,onEdit}) => {
   const [flipped, setFlipped] = useState(false);
   if (!card) return null;
 
@@ -29,7 +30,7 @@ const FlashcardComponent: React.FC<FlashcardProps> = ({ card, onDelete,isBeingDe
         }`}
       >
         {/* Front card */}
-        <FrontCard card={card} onDelete={onDelete}/>
+        <FrontCard card={card} onDelete={onDelete} onEdit={onEdit}/>
         {/* Back card */}
         <div
           className="absolute w-full h-full

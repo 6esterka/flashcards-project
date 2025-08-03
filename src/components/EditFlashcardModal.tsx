@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,FormEvent } from "react";
 import type { Flashcard } from "../types/flashcard";
 
 interface EditFlashcardModalProps {
@@ -14,7 +14,8 @@ const EditFlashcardModal: React.FC<EditFlashcardModalProps> = ({
 }) => {
   const [question, setQuestion] = useState(editFlashcard?.question);
   const [answer, setAnswer] = useState(editFlashcard?.answer);
-  const onSaveButtonClickHandler = () => {
+  const onSaveButtonClickHandler = (event:FormEvent) => {
+    event.preventDefault();
     if (!question.trim() || !answer.trim()) {
       alert("Please fill in both question and answer fields.");
       return;
@@ -27,8 +28,9 @@ const EditFlashcardModal: React.FC<EditFlashcardModalProps> = ({
       className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50"
       onClick={onClose}
     >
-      <div
+      <form
         onClick={(e) => e.stopPropagation()}
+        onSubmit={onSaveButtonClickHandler}
         className="bg-white rounded-lg p-6 max-w-md w-full shadow-lg"
       >
         <h2 className="text-xl font-semibold mb-4">Edit Flashcard</h2>
@@ -47,7 +49,7 @@ const EditFlashcardModal: React.FC<EditFlashcardModalProps> = ({
           className="w-full border border-gray-300 rounded px-3 py-2 mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
         <div className="flex justify-center space-x-3">
-          <button onClick={onSaveButtonClickHandler} className="px-4 py-2 rounded bg-blue-600 text-white hover:bg-blue-800">
+          <button type="submit" className="px-4 py-2 rounded bg-blue-600 text-white hover:bg-blue-800">
             Save
           </button>
           <button
@@ -57,7 +59,7 @@ const EditFlashcardModal: React.FC<EditFlashcardModalProps> = ({
             Cancel
           </button>
         </div>
-      </div>
+      </form>
     </div>
   );
 };

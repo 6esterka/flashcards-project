@@ -8,7 +8,7 @@ const EditCardButton: React.FC<object> = () => {
   };
   return (
     <button
-      className="absolute top-2 left-2 hover:text-red-700 transition-colors duration-200"
+      className="absolute top-2 left-2 hover:text-blue-700 transition-colors duration-200"
       onClick={onEditButtonClickHandler}
     >
       <svg

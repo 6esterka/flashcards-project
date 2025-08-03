@@ -1,5 +1,5 @@
 import "./App.css";
-import FlashcardComponent from "./components/Flashcard";
+import FlashcardComponent from "./components/Flashcard/Flashcard";
 import ProgressStats from "./components/ProgressStats";
 import NavigationControls from "./components/NavigationControls";
 import { useFlashcards } from "./hooks/useFlashcards";

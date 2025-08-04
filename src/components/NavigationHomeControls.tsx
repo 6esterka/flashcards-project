@@ -9,7 +9,7 @@ interface Props {
   onMarkAsLearned: () => void;
 }
 
-const NavigationControls: React.FC<Props> = ({
+const NavigationHomeControls: React.FC<Props> = ({
   currentIndex,
   cards,
   onPrev,
@@ -50,4 +50,4 @@ const NavigationControls: React.FC<Props> = ({
   );
 };
 
-export default NavigationControls;
+export default NavigationHomeControls;

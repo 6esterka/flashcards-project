@@ -8,10 +8,11 @@ import LoadingIndicator from "../components/LoadingIndicator";
 import NoFlashcardIndicator from "../components/NoFlashcardComponent";
 import EditFlashcardModal from "../components/EditFlashcardModal";
 import type { Flashcard } from "../types/flashcard";
+import FilterButtons from "../components/FilterButtons";
 
 function Home() {
   const {
-    cards,
+    filteredFlashcards,
     currentCard,
     currentCardIndex,
     moveNextHandler,
@@ -24,7 +25,9 @@ function Home() {
     setEditingCardId,
     editingCardId,
     updateCard,
-    cardToEdit
+    cardToEdit,
+    filter,
+    setFilter
   } = useFlashcards();
   if (loading) {
     return (
@@ -36,7 +39,8 @@ function Home() {
 
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center">
-      {cards.length === 0 ? (
+        <FilterButtons onFilterChange={setFilter} currentFilter={filter}/>
+      {filteredFlashcards.length === 0 ? (
         <NoFlashcardIndicator />
       ) : (
         <FlashcardComponent
@@ -48,12 +52,12 @@ function Home() {
       )}
       <NavigationHomeControls
         currentIndex={currentCardIndex}
-        cards={cards}
+        cards={filteredFlashcards}
         onPrev={movePreviousHandler}
         onNext={moveNextHandler}
         onMarkAsLearned={markAsLearnedHandler}
       />
-      <ProgressStats cards={cards} />
+      <ProgressStats cards={filteredFlashcards} />
       <AddFlashcardForm onAddFlashcard={addCard} />
       {editingCardId && (
         <EditFlashcardModal

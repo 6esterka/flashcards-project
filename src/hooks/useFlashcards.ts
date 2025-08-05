@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import type { Flashcard } from "../types/flashcard";
+import { FilterOption } from "../enums/filterOption";
 
 const STORAGE_KEY = "ai-flashcards";
 
@@ -34,8 +35,15 @@ export function useFlashcards() {
   const [cards, setCards] = useState<Flashcard[]>([]);
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
   const [loading, setLoading] = useState(true);
-  const [pendingDeleteId,setPendingDeleteId]=useState<string|null>(null);
-  const [editingCardId,setEditingCardId]=useState<string|null>(null);
+  const [pendingDeleteId, setPendingDeleteId] = useState<string | null>(null);
+  const [editingCardId, setEditingCardId] = useState<string | null>(null);
+  const [filter, setFilter] = useState<FilterOption>(FilterOption.All);
+  const filteredFlashcards = cards.filter((card: Flashcard) => {
+    if (filter === FilterOption.All) return true;
+    if (filter === FilterOption.Learned) return card.isLearned;
+    if (filter === FilterOption.New) return !card.isLearned;
+    return true;
+  });
 
   useEffect(() => {
     setTimeout(() => {
@@ -50,7 +58,7 @@ export function useFlashcards() {
       } catch (err) {
         console.error("Error during reading the local storage", err);
         setCards(initialCards);
-      }finally{
+      } finally {
         setLoading(false);
       }
     }, 1000);
@@ -58,15 +66,20 @@ export function useFlashcards() {
 
   useEffect(() => {
     if (!loading) {
+      localStorage.removeItem("ai-flashcards");
       localStorage.setItem(STORAGE_KEY, JSON.stringify(cards));
     }
   }, [cards, loading]);
 
-  const currentCard = cards[currentCardIndex];
+  useEffect(() => {
+    setCurrentCardIndex(0);
+  }, [filter]);
+
+  const currentCard = filteredFlashcards[currentCardIndex];
 
   const moveNextHandler = () => {
     setCurrentCardIndex((prevIndex) =>
-      prevIndex < cards.length - 1 ? prevIndex + 1 : prevIndex
+      prevIndex < filteredFlashcards.length - 1 ? prevIndex + 1 : prevIndex
     );
   };
 
@@ -77,9 +90,12 @@ export function useFlashcards() {
   };
 
   const markAsLearnedHandler = () => {
+    const id = filteredFlashcards[currentCardIndex]?.id;
+    if (!id) return;
+
     setCards((cardsArray) =>
-      cardsArray.map((card, index) =>
-        index === currentCardIndex ? { ...card, isLearned: true } : card
+      cardsArray.map((card) =>
+        card.id === id ? { ...card, isLearned: true } : card
       )
     );
   };
@@ -94,35 +110,35 @@ export function useFlashcards() {
     setCards((cardsArray) => [...cardsArray, newCard]);
   };
 
-  const requestDeleteCard=(id:string)=>{
+  const requestDeleteCard = (id: string) => {
     setPendingDeleteId(id);
 
-    setTimeout(()=>{
-      setCards((cardsArray)=>{
-        const newCards=cardsArray.filter((card)=>card.id!==id);
+    setTimeout(() => {
+      setCards((cardsArray) => {
+        const newCards = cardsArray.filter((card) => card.id !== id);
         //Keep this const if you would like to set change index logic during deleting card
-        const deleteCardIndex=cardsArray.findIndex((card)=>card.id===id);
+        const deleteCardIndex = cardsArray.findIndex((card) => card.id === id);
 
-        const newIndex=Math.min(currentCardIndex,newCards.length-1);
-        setCurrentCardIndex(newIndex>=0?newIndex:0);
+        const newIndex = Math.min(currentCardIndex, newCards.length - 1);
+        setCurrentCardIndex(newIndex >= 0 ? newIndex : 0);
         return newCards;
       });
       setPendingDeleteId(null);
-    },300);
-  }
+    }, 300);
+  };
 
-  const updateCard=(id:string,updatedFields:Partial<Flashcard>)=>{
+  const updateCard = (id: string, updatedFields: Partial<Flashcard>) => {
     setCards((cardsArray) =>
       cardsArray.map((card) =>
-        card.id === id ? {...card,...updatedFields} : card
+        card.id === id ? { ...card, ...updatedFields } : card
       )
     );
     setEditingCardId(null);
-  }
+  };
   const cardToEdit = cards.find((card) => card.id === editingCardId);
 
   return {
-    cards,
+    filteredFlashcards,
     currentCard,
     currentCardIndex,
     moveNextHandler,
@@ -135,6 +151,8 @@ export function useFlashcards() {
     setEditingCardId,
     editingCardId,
     updateCard,
-    cardToEdit
+    cardToEdit,
+    filter,
+    setFilter,
   };
 }

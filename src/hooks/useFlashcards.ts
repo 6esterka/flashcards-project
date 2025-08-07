@@ -65,6 +65,14 @@ export function useFlashcards() {
   }, []);
 
   useEffect(() => {
+  if (filteredFlashcards.length === 0) {
+    setCurrentCardIndex(0);
+  } else if (currentCardIndex >= filteredFlashcards.length) {
+    setCurrentCardIndex(0);
+  }
+}, [filteredFlashcards, currentCardIndex]);
+
+  useEffect(() => {
     if (!loading) {
       localStorage.removeItem("ai-flashcards");
       localStorage.setItem(STORAGE_KEY, JSON.stringify(cards));

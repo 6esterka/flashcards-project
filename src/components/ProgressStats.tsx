@@ -9,7 +9,7 @@ const ProgressStats: React.FC<Props> = ({ cards }) => {
     const learnedCount = cards.filter((card) => card.isLearned).length;
     const totalCount = cards.length;
 
-    return (
+    return cards.length>0&&(
         <div className="flex gap-4 mt-4">
             <p className="text-sm text-gray-700">
                 Progress: {learnedCount} out of {totalCount} cards learned.

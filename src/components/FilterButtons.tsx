@@ -5,7 +5,7 @@ interface FilterButtonsProps {
   onFilterChange: (filter: FilterOption) => void;
 }
 
-function FilterButtons({ currentFilter, onFilterChange }: FilterButtonsProps) {
+function FilterButtons({ currentFilter, onFilterChange }: Readonly<FilterButtonsProps>) {
   return (
     <div className="mb-4 flex gap-4">
       {Object.values(FilterOption).map((option) => (

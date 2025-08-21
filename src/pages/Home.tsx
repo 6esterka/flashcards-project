@@ -9,6 +9,7 @@ import NoFlashcardIndicator from "../components/NoFlashcardComponent";
 import EditFlashcardModal from "../components/EditFlashcardModal";
 import type { Flashcard } from "../types/flashcard";
 import FilterButtons from "../components/FilterButtons";
+import CreateFlashcardButton from "../components/CreateFlashcardButton";
 
 function Home() {
   const {
@@ -27,7 +28,9 @@ function Home() {
     updateCard,
     cardToEdit,
     filter,
-    setFilter
+    setFilter,
+    isAddFlashcardFormOpen,
+    setIsAddFlashcardFormOpen,
   } = useFlashcards();
   if (loading) {
     return (
@@ -39,7 +42,7 @@ function Home() {
 
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center">
-        <FilterButtons onFilterChange={setFilter} currentFilter={filter}/>
+      <FilterButtons onFilterChange={setFilter} currentFilter={filter} />
       {filteredFlashcards.length === 0 ? (
         <NoFlashcardIndicator />
       ) : (
@@ -58,13 +61,19 @@ function Home() {
         onMarkAsLearned={markAsLearnedHandler}
       />
       <ProgressStats cards={filteredFlashcards} />
-      <AddFlashcardForm onAddFlashcard={addCard} />
+      <CreateFlashcardButton onCreate={() => setIsAddFlashcardFormOpen(true)} />
+      {isAddFlashcardFormOpen && (
+        <AddFlashcardForm
+          onAddFlashcard={addCard}
+          onClose={() => setIsAddFlashcardFormOpen(false)}
+        />
+      )}
       {editingCardId && (
         <EditFlashcardModal
           onClose={() => setEditingCardId(null)}
           editFlashcard={cardToEdit!}
-          onSave={(id:string,updatedFields:Partial<Flashcard>)=>{
-            updateCard(id,updatedFields);
+          onSave={(id: string, updatedFields: Partial<Flashcard>) => {
+            updateCard(id, updatedFields);
             setEditingCardId(null);
           }}
         />

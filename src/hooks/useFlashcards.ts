@@ -38,6 +38,7 @@ export function useFlashcards() {
   const [pendingDeleteId, setPendingDeleteId] = useState<string | null>(null);
   const [editingCardId, setEditingCardId] = useState<string | null>(null);
   const [filter, setFilter] = useState<FilterOption>(FilterOption.All);
+  const [isAddFlashcardFormOpen, setIsAddFlashcardFormOpen] = useState(false);
   const filteredFlashcards = cards.filter((card: Flashcard) => {
     if (filter === FilterOption.All) return true;
     if (filter === FilterOption.Learned) return card.isLearned;
@@ -162,5 +163,7 @@ export function useFlashcards() {
     cardToEdit,
     filter,
     setFilter,
+    isAddFlashcardFormOpen,
+    setIsAddFlashcardFormOpen,
   };
 }

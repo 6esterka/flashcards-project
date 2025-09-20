@@ -126,7 +126,7 @@ export function useFlashcards() {
       setCards((cardsArray) => {
         const newCards = cardsArray.filter((card) => card.id !== id);
         //Keep this const if you would like to set change index logic during deleting card
-        const deleteCardIndex = cardsArray.findIndex((card) => card.id === id);
+        // const deleteCardIndex = cardsArray.findIndex((card) => card.id === id);
 
         const newIndex = Math.min(currentCardIndex, newCards.length - 1);
         setCurrentCardIndex(newIndex >= 0 ? newIndex : 0);

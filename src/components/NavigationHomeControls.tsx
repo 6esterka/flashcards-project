@@ -1,6 +1,6 @@
 import type React from "react";
 import type { Flashcard } from "../types/flashcard";
-import { Button } from "./ui/Button";
+import { Button } from "./ui/customButton/Button";
 
 interface Props {
   currentIndex: number;

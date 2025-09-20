@@ -1,5 +1,5 @@
 import React, { type FormEvent, useState } from "react";
-import { Button } from "./ui/Button";
+import { Button } from "./ui/customButton/Button";
 
 interface AddFlashcardProps {
   onAddFlashcard: (question: string, answer: string) => void;
@@ -62,6 +62,7 @@ const AddFlashcardForm: React.FC<AddFlashcardProps> = ({
           variant="primary"
           type="submit"
           className="w-full"
+          disabled={!question.trim() || !answer.trim()}
         >
           ➕ Add card
         </Button>

@@ -1,28 +1,15 @@
-import React, { useState, useRef } from "react";
+import React from "react";
 
 type RippleProps = {
+  readonly ripples: { x: number; y: number; size: number; id: number }[];
   readonly variant: "primary" | "secondary" | "accent";
 };
 
-export function Ripple({ variant }: RippleProps) {
-  const [ripples, setRipples] = useState<{ x: number; y: number; id: number; size: number }[]>([]);
-  const idRef = useRef(0);
-
-  const getColor = (v: string) => {
-    if (v === "primary") return "rgba(85,108,214,0.28)";   // #556cd6
-    if (v === "secondary") return "rgba(244,162,97,0.28)"; // #f4a261
-    return "rgba(231,111,81,0.28)";                          // #e76f51
-  };
-
-  const createRipple = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    const diameter = Math.max(rect.width, rect.height) * 1.6;
-    const id = ++idRef.current;
-
-    setRipples((prev) => [...prev, { x, y, id, size: diameter }]);
-    setTimeout(() => setRipples((prev) => prev.filter((r) => r.id !== id)), 450); // faster ripple
+export function Ripple({ ripples, variant }: RippleProps) {
+  const getColor = (variant: string) => {
+    if (variant === "primary") return "rgba(85,108,214,0.28)";
+    if (variant === "secondary") return "rgba(244,162,97,0.28)";
+    return "rgba(231,111,81,0.28)";
   };
 
   return (

@@ -3,6 +3,7 @@ import type { ButtonHTMLAttributes } from "react";
 import clsx from "clsx";
 import React, { useState } from "react";
 import { Ripple } from "./Ripple";
+import { useRipple } from "../../../hooks/useRipple";
 
 type Props = Omit<ButtonHTMLAttributes<HTMLButtonElement>, "onDrag"> &
   MotionProps & {
@@ -33,19 +34,7 @@ export function Button({
   disabled = false,
   ...props
 }: Props & { disabled?: boolean }) {
-  const [ripples, setRipples] = useState<{ x: number; y: number; size: number; id: number }[]>([]);
-  const idRef = React.useRef(0);
-
-  const createRipple = (e: React.MouseEvent<HTMLButtonElement>) => {
-    if (disabled) return;
-    const rect = e.currentTarget.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    const diameter = Math.max(rect.width, rect.height) * 1.6;
-    const id = ++idRef.current;
-    setRipples((prev) => [...prev, { x, y, size: diameter, id }]);
-    setTimeout(() => setRipples((prev) => prev.filter((r) => r.id !== id)), 450);
-  };
+  const { ripples, createRipple } = useRipple();
 
   return (
     <motion.button

@@ -1,4 +1,3 @@
-import React from "react";
 
 type RippleProps = {
   readonly ripples: { x: number; y: number; size: number; id: number }[];

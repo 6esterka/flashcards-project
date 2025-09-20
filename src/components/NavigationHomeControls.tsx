@@ -1,5 +1,6 @@
 import type React from "react";
 import type { Flashcard } from "../types/flashcard";
+import { Button } from "./ui/Button";
 
 interface Props {
   currentIndex: number;
@@ -24,29 +25,32 @@ const NavigationHomeControls: React.FC<Props> = ({
       </p>
       )}
       <div className="flex gap-4">
-        <button
+        <Button
           onClick={onPrev}
-          className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 disabled:bg-gray-300 disabled:cursor-not-allowed transition"
+          variant="primary"
+          className="px-4 py-2"
           disabled={currentIndex === 0}
         >
           ← Previous
-        </button>
+        </Button>
 
-        <button
+        <Button
           onClick={onNext}
-          className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 disabled:bg-gray-300 disabled:cursor-not-allowed transition"
-          disabled={currentIndex === cards.length - 1 || cards.length===0}
+          variant="primary"
+          className="px-4 py-2"
+          disabled={currentIndex === cards.length - 1 || cards.length === 0}
         >
           Next →
-        </button>
-
-        <button
+        </Button>
+        
+        <Button
           onClick={onMarkAsLearned}
-          className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 disabled:bg-gray-300 disabled:cursor-not-allowed transition"
+          variant="accent"
+          className="px-4 py-2"
           disabled={cards[currentIndex]?.isLearned ?? true}
         >
           ✅ Learned
-        </button>
+        </Button>
       </div>
     </div>
   );

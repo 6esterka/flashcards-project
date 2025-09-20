@@ -1,3 +1,4 @@
+import { Button } from "./ui/Button";
 
 
 interface CreateFlashcardButtonProps {
@@ -10,12 +11,13 @@ function CreateFlashcardButton({ onCreate }: CreateFlashcardButtonProps) {
         onCreate();
     };
     return (
-        <button
-            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 mt-6"
+        <Button
+            variant="secondary"
+            className="mt-6"
             onClick={onAddButtonClickHandler}
         >
             New Flashcard
-        </button>
+        </Button>
     );
 }
 

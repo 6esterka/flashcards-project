@@ -1,7 +1,6 @@
 import { motion, type MotionProps } from "framer-motion";
 import type { ButtonHTMLAttributes } from "react";
 import clsx from "clsx";
-import React, { useState } from "react";
 import { Ripple } from "./Ripple";
 import { useRipple } from "../../../hooks/useRipple";
 

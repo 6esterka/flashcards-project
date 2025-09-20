@@ -34,7 +34,7 @@ function App() {
             path="/generate"
             element={
               <AnimatedPage>
-                <Generate />
+                <Generate onGenerate={(topic) => console.log(topic)} />
               </AnimatedPage>
             }
           />

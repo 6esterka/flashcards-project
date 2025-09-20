@@ -1,5 +1,6 @@
 import React, { useState,type FormEvent } from "react";
 import type { Flashcard } from "../types/flashcard";
+import { Button } from "./ui/customButton/Button";
 
 interface EditFlashcardModalProps {
   onClose: () => void;
@@ -49,15 +50,15 @@ const EditFlashcardModal: React.FC<EditFlashcardModalProps> = ({
           className="w-full border border-gray-300 rounded px-3 py-2 mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
         <div className="flex justify-center space-x-3">
-          <button type="submit" className="px-4 py-2 rounded bg-blue-600 text-white hover:bg-blue-800">
+          <Button variant="primary" type="submit">
             Save
-          </button>
-          <button
+          </Button>
+          <Button
             onClick={onClose}
-            className="px-4 py-2 rounded bg-gray-300 hover:bg-gray-400"
+            variant="secondary"
           >
             Cancel
-          </button>
+          </Button>
         </div>
       </form>
     </div>

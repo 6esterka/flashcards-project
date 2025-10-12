@@ -1,17 +1,17 @@
-import {useState,FormEvent} from "react";
+import {useState,type FormEvent} from "react";
 import { Button } from "../components/ui/customButton/Button";
 
 interface GenerateProps {
-    readonly onGenerate: (topic:string) => void;
+    readonly onGenerate: (topic:string) => Promise<void>;
 }
 
 export default function Generate({onGenerate}: GenerateProps){
     const [topic, setTopic] = useState("");
 
-    const handleSubmit=(event:FormEvent) => {
+    const handleSubmit=async (event:FormEvent)=>{
         event.preventDefault();
         if(!topic.trim())return;
-        onGenerate(topic);
+        await onGenerate(topic);
         setTopic("");
     }
     return (

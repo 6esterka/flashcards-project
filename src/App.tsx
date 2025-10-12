@@ -5,6 +5,7 @@ import Stats from "./pages/Stats";
 import Generate from "./pages/Generate";
 import AnimatedPage from "./components/layout/AnimatedPage";
 import { AnimatePresence } from "framer-motion";
+import { generateFlashcards } from "./api/openai";
 
 function App() {
   const location = useLocation();
@@ -34,7 +35,7 @@ function App() {
             path="/generate"
             element={
               <AnimatedPage>
-                <Generate onGenerate={(topic) => console.log(topic)} />
+                <Generate onGenerate={async (topic) => console.log(await generateFlashcards(topic))} />
               </AnimatedPage>
             }
           />

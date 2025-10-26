@@ -11,7 +11,7 @@ import type { Flashcard } from "../types/flashcard";
 import FilterButtons from "../components/homeComponents/FilterButtons";
 import CreateFlashcardButton from "../components/homeComponents/CreateFlashcardButton";
 
-function Home() {
+export default function Home() {
   const {
     filteredFlashcards,
     currentCard,
@@ -82,5 +82,3 @@ function Home() {
     </div>
   );
 }
-
-export default Home;

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import type { Flashcard } from "../../types/flashcard";
+import type { Flashcard } from "../../../types/flashcard";
 import FrontCard from "./FrontCard";
 
 interface FlashcardProps {

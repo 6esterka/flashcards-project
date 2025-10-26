@@ -1,4 +1,4 @@
-import { Button } from "./ui/customButton/Button";
+import { Button } from "../ui/customButton/Button";
 
 
 interface CreateFlashcardButtonProps {

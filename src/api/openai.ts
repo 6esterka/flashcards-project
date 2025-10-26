@@ -14,7 +14,7 @@ export async function generateFlashcards(topic: string): Promise<Flashcard[]> {
         Authorization: `Bearer ${import.meta.env.VITE_OPENROUTER_API_KEY}`,
       },
       body: JSON.stringify({
-        model: "mistralai/mistral-small-3.1-24b-instruct:free", // ✅ free model
+        model: "mistralai/mistral-small-3.1-24b-instruct:free", // free model
         messages: [
           {
             role: "system",
@@ -38,14 +38,14 @@ export async function generateFlashcards(topic: string): Promise<Flashcard[]> {
 
     let text = data.choices[0].message?.content ?? "";
 
-    // 🧹 Clean unwanted wrappers
+    // Clean unwanted wrappers
     text = text.replace(/^<[^>]*>\s*/, ""); // remove <s> or <...>
     text = text.replace(/```json|```/g, ""); // remove code fences
     text = text.trim();
 
     console.log("🔍 Raw model output:", text);
 
-    // ✅ Try to parse JSON
+    // Try to parse JSON
     const parsed = JSON.parse(text);
 
     // Ensure it's an array

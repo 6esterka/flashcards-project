@@ -1,4 +1,4 @@
-import type { Flashcard } from "../types/flashcard";
+import type { Flashcard } from "../../types/flashcard";
 import React from "react";
 
 interface Props {

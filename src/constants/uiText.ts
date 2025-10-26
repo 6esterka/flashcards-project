@@ -2,7 +2,8 @@ export const uiText={
     generate:{
         pageTitle:"Generate Flashcards",
         inputPlaceHolder:"Enter a topic",
-        generateButton:"Generate"
+        generateButton:"Generate",
+        success: "Flashcards generated successfully!"
     },
     home:{
 

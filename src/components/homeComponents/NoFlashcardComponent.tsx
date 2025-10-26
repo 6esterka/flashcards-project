@@ -1,5 +1,5 @@
-const NoFlashcardIndicator=()=>{
-    return <p className="text-gray-600 text-lg">No flashcards yet for this group</p>
-}
+import { uiText } from "../../constants/uiText"
 
-export default NoFlashcardIndicator;
+export default function NoFlashcardIndicator(){
+    return <p className="text-gray-600 text-lg">{uiText.home.noFlashcardIndicatorText}</p>
+}

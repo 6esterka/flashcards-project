@@ -45,6 +45,7 @@ function Home() {
       <FilterButtons onFilterChange={setFilter} currentFilter={filter} />
       {filteredFlashcards.length === 0 ? (
         <NoFlashcardIndicator />
+        //TODO F: Left here with translation
       ) : (
         <FlashcardComponent
           card={currentCard}

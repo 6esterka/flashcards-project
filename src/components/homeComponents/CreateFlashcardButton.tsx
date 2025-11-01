@@ -1,3 +1,4 @@
+import { uiText } from "../../constants/uiText";
 import { Button } from "../ui/customButton/Button";
 
 
@@ -16,7 +17,7 @@ function CreateFlashcardButton({ onCreate }: CreateFlashcardButtonProps) {
             className="mt-6"
             onClick={onAddButtonClickHandler}
         >
-            New Flashcard
+            {uiText.home.createCardButton}
         </Button>
     );
 }

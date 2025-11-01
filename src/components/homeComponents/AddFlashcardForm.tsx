@@ -1,5 +1,6 @@
 import React, { type FormEvent, useState } from "react";
 import { Button } from "../ui/customButton/Button";
+import { uiText } from "../../constants/uiText";
 
 interface AddFlashcardProps {
   onAddFlashcard: (question: string, answer: string) => void;
@@ -35,19 +36,19 @@ const AddFlashcardForm: React.FC<AddFlashcardProps> = ({
       >
         <div>
           <label className="block text-sm font-medium text-gray-700">
-            Question
+            {uiText.home.addCardForm.questionInputLabel}
           </label>
           <input
             type="text"
             value={question}
             onChange={(event) => setQuestion(event.target.value)}
             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-            placeholder="For ex: Who is Jimmy Neutron?"
+            placeholder={uiText.home.addCardForm.questionInputPlaceholder}
           />
         </div>
         <div>
           <label className="block text-sm font-medium text-gray-700">
-            Answer
+            {uiText.home.addCardForm.answerInputLabel}
           </label>
           <input
             type="text"
@@ -64,7 +65,7 @@ const AddFlashcardForm: React.FC<AddFlashcardProps> = ({
           className="w-full"
           disabled={!question.trim() || !answer.trim()}
         >
-          ➕ Add card
+          {uiText.home.addCardForm.addCardButton}
         </Button>
       </form>
     </div>

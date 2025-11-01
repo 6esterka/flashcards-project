@@ -1,3 +1,5 @@
+import { uiText } from "../../../constants/uiText";
+
 interface RemoveCardButtonProps {
   cardId: string;
   onDelete: (id: string) => void;
@@ -17,7 +19,7 @@ const RemoveCardButton: React.FC<RemoveCardButtonProps> = ({
     <button
       className="absolute top-2 right-2 hover:text-red-700 transition-colors duration-200"
       onClick={onDeleteButtonClick}
-      title="Remove card"
+      title={uiText.home.removeCardButton}
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"

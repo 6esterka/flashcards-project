@@ -1,6 +1,7 @@
 import React, { useState,type FormEvent } from "react";
 import type { Flashcard } from "../../types/flashcard";
 import { Button } from "../ui/customButton/Button";
+import { uiText } from "../../constants/uiText";
 
 interface EditFlashcardModalProps {
   onClose: () => void;
@@ -34,15 +35,15 @@ const EditFlashcardModal: React.FC<EditFlashcardModalProps> = ({
         onSubmit={onSaveButtonClickHandler}
         className="bg-white rounded-lg p-6 max-w-md w-full shadow-lg"
       >
-        <h2 className="text-xl font-semibold mb-4">Edit Flashcard</h2>
-        <label className="block mb-2 font-medium">Question:</label>
+        <h2 className="text-xl font-semibold mb-4">{uiText.home.editCardForm.formTitle}</h2>
+        <label className="block mb-2 font-medium">{uiText.home.editCardForm.questionInputLabel}</label>
         <input
           type="text"
           value={question}
           onChange={(e) => setQuestion(e.target.value)}
           className="w-full border border-gray-300 rounded px-3 py-2 mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
-        <label className="block mb-2 font-medium">Answer:</label>
+        <label className="block mb-2 font-medium">{uiText.home.editCardForm.answerInputLabel}</label>
         <input
           type="text"
           value={answer}
@@ -51,13 +52,13 @@ const EditFlashcardModal: React.FC<EditFlashcardModalProps> = ({
         />
         <div className="flex justify-center space-x-3">
           <Button variant="primary" type="submit">
-            Save
+            {uiText.home.editCardForm.saveButton}
           </Button>
           <Button
             onClick={onClose}
             variant="secondary"
           >
-            Cancel
+            {uiText.home.editCardForm.cancelButton}
           </Button>
         </div>
       </form>

@@ -1,6 +1,7 @@
 import type React from "react";
 import type { Flashcard } from "../../types/flashcard";
 import { Button } from "../ui/customButton/Button";
+import { uiText } from "../../constants/uiText";
 
 interface Props {
   currentIndex: number;
@@ -21,7 +22,7 @@ const NavigationHomeControls: React.FC<Props> = ({
     <div className="flex flex-col items-center gap-4 mt-6 mb-2">
       {cards.length>0&&(
         <p className="text-sm text-gray-600">
-        The card number is {currentIndex + 1} from {cards.length} cards.
+          {uiText.home.navControls.cardCounter(currentIndex,cards.length)}
       </p>
       )}
       <div className="flex gap-4">
@@ -31,7 +32,7 @@ const NavigationHomeControls: React.FC<Props> = ({
           className="px-4 py-2"
           disabled={currentIndex === 0}
         >
-          ← Previous
+          {uiText.home.navControls.previousButton}
         </Button>
 
         <Button
@@ -40,7 +41,7 @@ const NavigationHomeControls: React.FC<Props> = ({
           className="px-4 py-2"
           disabled={currentIndex === cards.length - 1 || cards.length === 0}
         >
-          Next →
+          {uiText.home.navControls.nextButton}
         </Button>
         
         <Button
@@ -49,7 +50,7 @@ const NavigationHomeControls: React.FC<Props> = ({
           className="px-4 py-2"
           disabled={cards[currentIndex]?.isLearned ?? true}
         >
-          ✅ Learned
+          {uiText.home.navControls.learnedButton}
         </Button>
       </div>
     </div>

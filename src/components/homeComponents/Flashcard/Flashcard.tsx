@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import type { Flashcard } from "../../../types/flashcard";
-import FrontCard from "./FrontCard";
+import type { Flashcard } from "@/types/flashcard";
+import FrontCard from "@/components/homeComponents/Flashcard/FrontCard";
 
 interface FlashcardProps {
   card: Flashcard;

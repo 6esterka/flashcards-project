@@ -22,10 +22,11 @@
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
-    // "baseUrl": "./src",
-    // "paths":{
-    //   "@/*":["*"]
-    // }
+    "baseUrl": "./src",
+    "paths":{
+      "@/*":["*"]
+    },
+    "types": ["node"]
   },
   "include": ["src"]
 }

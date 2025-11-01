@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import type { Flashcard } from "../types/flashcard";
-import { FilterOption } from "../enums/filterOption";
+import type { Flashcard } from "@/types/flashcard";
+import { FilterOption } from "@/enums/filterOption";
 
 const STORAGE_KEY = "ai-flashcards";
 

@@ -1,8 +1,8 @@
 import { useState, type FormEvent } from "react";
-import { Button } from "../components/ui/customButton/Button";
-import ProgressBar from "../components/generateComponents/ProgressBar";
-import { uiText } from "../constants/uiText";
-import GenerationStatus from "../components/generateComponents/GenerationStatus";
+import { Button } from "@/components/ui/customButton/Button";
+import ProgressBar from "@/components/generateComponents/ProgressBar";
+import { uiText } from "@/constants/uiText";
+import GenerationStatus from "@/components/generateComponents/GenerationStatus";
 
 interface GenerateProps {
   readonly onGenerate: (topic: string) => Promise<void>;

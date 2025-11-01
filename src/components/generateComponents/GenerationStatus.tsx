@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from "framer-motion"
-import { uiText } from "../../constants/uiText"
+import { uiText } from "@/constants/uiText"
 
 interface GenerationStatus{
     readonly showSuccess:boolean

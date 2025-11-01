@@ -1,6 +1,6 @@
 import React, { type FormEvent, useState } from "react";
-import { Button } from "../ui/customButton/Button";
-import { uiText } from "../../constants/uiText";
+import { Button } from "@/components/ui/customButton/Button";
+import { uiText } from "@/constants/uiText";
 
 interface AddFlashcardProps {
   onAddFlashcard: (question: string, answer: string) => void;

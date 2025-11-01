@@ -1,4 +1,4 @@
-import { FilterOption } from "../../enums/filterOption";
+import { FilterOption } from "@/enums/filterOption";
 
 interface FilterButtonsProps {
   currentFilter: string;

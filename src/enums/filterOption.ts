@@ -1,4 +1,4 @@
-import { uiText } from "../constants/uiText";
+import { uiText } from "@/constants/uiText";
 
 export const FilterOption = {
     All: uiText.home.filterButton.all,

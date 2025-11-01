@@ -1,6 +1,6 @@
-import type { Flashcard } from "../../types/flashcard";
+import type { Flashcard } from "@/types/flashcard";
 import React from "react";
-import { uiText } from "../../constants/uiText";
+import { uiText } from "@/constants/uiText";
 
 interface Props {
     cards: Flashcard[];

@@ -1,5 +1,5 @@
-import { uiText } from "../../constants/uiText";
-import { Button } from "../ui/customButton/Button";
+import { uiText } from "@/constants/uiText";
+import { Button } from "@/components/ui/customButton/Button";
 
 
 interface CreateFlashcardButtonProps {

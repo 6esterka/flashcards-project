@@ -1,6 +1,6 @@
-import type { Flashcard } from "../../../types/flashcard";
-import EditCardButton from "./EditCardButton";
-import RemoveCardButton from "./RemoveCardButton";
+import type { Flashcard } from "@/types/flashcard";
+import EditCardButton from "@/components/homeComponents/Flashcard/EditCardButton";
+import RemoveCardButton from "@/components/homeComponents/Flashcard/RemoveCardButton";
 
 interface FrontCardProps {
   card: Flashcard;

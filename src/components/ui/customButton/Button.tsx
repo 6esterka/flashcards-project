@@ -1,8 +1,8 @@
 import { motion, type MotionProps } from "framer-motion";
 import type { ButtonHTMLAttributes } from "react";
 import clsx from "clsx";
-import { Ripple } from "./Ripple";
-import { useRipple } from "../../../hooks/useRipple";
+import { Ripple } from "@/components/ui/customButton/Ripple";
+import { useRipple } from "@/hooks/useRipple";
 
 type Props = Omit<ButtonHTMLAttributes<HTMLButtonElement>, "onDrag"> &
   MotionProps & {

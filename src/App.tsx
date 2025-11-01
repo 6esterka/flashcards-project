@@ -1,11 +1,11 @@
 import { Route, Routes, useLocation } from "react-router-dom";
-import NavigationRouter from "./components/homeComponents/NavigationRouter";
-import Home from "./pages/Home";
-import Stats from "./pages/Stats";
-import Generate from "./pages/Generate";
-import AnimatedPage from "./components/layout/AnimatedPage";
+import NavigationRouter from "@/components/homeComponents/NavigationRouter";
+import Home from "@/pages/Home";
+import Stats from "@/pages/Stats";
+import Generate from "@/pages/Generate";
+import AnimatedPage from "@/components/layout/AnimatedPage";
 import { AnimatePresence } from "framer-motion";
-import { generateFlashcards } from "./api/openai";
+import { generateFlashcards } from "@/api/openai";
 
 function App() {
   const location = useLocation();

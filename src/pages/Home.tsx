@@ -1,15 +1,15 @@
-import "../App.css";
-import FlashcardComponent from "../components/homeComponents/Flashcard/Flashcard";
-import ProgressStats from "../components/homeComponents/ProgressStats";
-import NavigationHomeControls from "../components/homeComponents/NavigationHomeControls";
-import { useFlashcards } from "../hooks/useFlashcards";
-import AddFlashcardForm from "../components/homeComponents/AddFlashcardForm";
-import LoadingIndicator from "../components/homeComponents/LoadingIndicator";
-import NoFlashcardIndicator from "../components/homeComponents/NoFlashcardComponent";
-import EditFlashcardModal from "../components/homeComponents/EditFlashcardModal";
-import type { Flashcard } from "../types/flashcard";
-import FilterButtons from "../components/homeComponents/FilterButtons";
-import CreateFlashcardButton from "../components/homeComponents/CreateFlashcardButton";
+import "@/App.css";
+import FlashcardComponent from "@/components/homeComponents/Flashcard/Flashcard";
+import ProgressStats from "@/components/homeComponents/ProgressStats";
+import NavigationHomeControls from "@/components/homeComponents/NavigationHomeControls";
+import { useFlashcards } from "@/hooks/useFlashcards";
+import AddFlashcardForm from "@/components/homeComponents/AddFlashcardForm";
+import LoadingIndicator from "@/components/homeComponents/LoadingIndicator";
+import NoFlashcardIndicator from "@/components/homeComponents/NoFlashcardComponent";
+import EditFlashcardModal from "@/components/homeComponents/EditFlashcardModal";
+import type { Flashcard } from "@/types/flashcard";
+import FilterButtons from "@/components/homeComponents/FilterButtons";
+import CreateFlashcardButton from "@/components/homeComponents/CreateFlashcardButton";
 
 export default function Home() {
   const {

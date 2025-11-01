@@ -1,7 +1,7 @@
 import React, { useState,type FormEvent } from "react";
-import type { Flashcard } from "../../types/flashcard";
-import { Button } from "../ui/customButton/Button";
-import { uiText } from "../../constants/uiText";
+import type { Flashcard } from "@/types/flashcard";
+import { Button } from "@/components/ui/customButton/Button";
+import { uiText } from "@/constants/uiText";
 
 interface EditFlashcardModalProps {
   onClose: () => void;

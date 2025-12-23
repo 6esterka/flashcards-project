@@ -1,0 +1,28 @@
+Where you left? Setting unique id for generated flashcards
+What were you implementing 5th point
+
+1.✅ Integrate React Router and split views (Home, Stats, Generate)
+
+2. ✅ Add flashcard filtering (learned / new)
+
+3.✅ Improve UI/UX with animations and polish
+
+4.✅ Add AI-based card generation (via OpenAI API)
+
+5.⬜️ Store generated cards in app state instead of console
+
+6.⬜️ Implement card groups (default AI groups + custom user groups)
+
+7.⬜️ Add progress stats + charts (per group)
+
+8.⬜️ Move global state to Zustand
+
+9.⬜️ Write unit tests (with Testing Library)
+
+Refactoring tasks
+
+1. Reformat all components from constants into functions to make testing simpler
+
+2. Reformat types and interfaces and try to apply next rule 
+    - interface for data contracts (often BE).
+    - type for UI, logic, and composition.

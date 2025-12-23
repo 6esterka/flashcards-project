@@ -13,6 +13,7 @@
     "@heroicons/react": "^2.2.0",
     "clsx": "^2.1.1",
     "framer-motion": "^12.23.12",
+    "nanoid": "^5.1.6",
     "path": "^0.12.7",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",

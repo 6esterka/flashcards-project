@@ -3,16 +3,17 @@ import { Button } from "@/components/ui/customButton/Button";
 import ProgressBar from "@/components/generateComponents/ProgressBar";
 import { uiText } from "@/constants/uiText";
 import GenerationStatus from "@/components/generateComponents/GenerationStatus";
+import type { PromptFlashcard } from "@/types/promptFlashcard";
+import GeneratorAI from "@/api/GeneratorAI";
 
-interface GenerateProps {
-  readonly onGenerate: (topic: string) => Promise<void>;
-}
-
-export default function Generate({ onGenerate }: GenerateProps) {
+export default function Generate() {
   const [topic, setTopic] = useState("");
   const [progress, setProgress] = useState(0);
   const [isGenerating, setIsGenerating] = useState(false);
   const [showSuccess,setShowSuccess]=useState(false);
+  // const [generatedCards,setGeneratedCards]=useState<Flashcard[]>([]);
+
+  const onGenerateHandler=async ():Promise<PromptFlashcard[]> => await GeneratorAI.generateFlashcards(topic)
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
@@ -25,7 +26,7 @@ export default function Generate({ onGenerate }: GenerateProps) {
       setProgress((prev) => Math.min(prev + 5, 90));
     }, 250);
     try {
-      await onGenerate(topic);
+      await onGenerateHandler();
       setShowSuccess(true);
     } finally {
       clearInterval(interval);

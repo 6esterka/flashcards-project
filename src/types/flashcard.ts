@@ -1,6 +1,6 @@
-export interface Flashcard{
+import type { PromptFlashcard } from "@/types/promptFlashcard";
+
+export type Flashcard=PromptFlashcard&{
     id:string;
-    question:string;
-    answer:string;
-    isLearned:boolean;
+    groupId?:string;
 }

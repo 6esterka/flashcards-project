@@ -3,7 +3,8 @@ export const uiText={
         pageTitle:"Generate Flashcards",
         inputPlaceHolder:"Enter a topic",
         generateButton:"Generate",
-        success: "Flashcards generated successfully!"
+        successMessage: "Flashcards generated successfully!",
+        errorMessage: (errorText:string|undefined) => `Flashcards generation failed: ${errorText}`
     },
     home:{
         loadingIndicatorText:"Loading flashcards...",

@@ -6,7 +6,6 @@ type ApiResponseWrapper = {
 
 export default class GeneratorAI {
   public static async generateFlashcards(topic: string): Promise<PromptFlashcard[]> {
-    try {
       const response = await this.sendRequest(topic);
       if (!response.ok) {
         throw new Error(
@@ -26,10 +25,6 @@ export default class GeneratorAI {
 
       console.warn("Unexpected JSON shape:", parsed);
       return [];
-    } catch (err) {
-      console.error("Flashcard generation failed:", err);
-      return [];
-    }
   }
 
     private static async sendRequest(topic: string): Promise<Response> {

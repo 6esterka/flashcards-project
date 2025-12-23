@@ -5,12 +5,14 @@ import { uiText } from "@/constants/uiText";
 import GenerationStatus from "@/components/generateComponents/GenerationStatus";
 import type { PromptFlashcard } from "@/types/promptFlashcard";
 import GeneratorAI from "@/api/GeneratorAI";
+import type { RequestStatus } from "@/types/requestStatus";
 
 export default function Generate() {
   const [topic, setTopic] = useState("");
   const [progress, setProgress] = useState(0);
   const [isGenerating, setIsGenerating] = useState(false);
-  const [showSuccess,setShowSuccess]=useState(false);
+  const [requestStatus,setRequestStatus]=useState<RequestStatus>('idle');
+  const [errorText,setErrorText]=useState("");
   // const [generatedCards,setGeneratedCards]=useState<Flashcard[]>([]);
 
   const onGenerateHandler=async ():Promise<PromptFlashcard[]> => await GeneratorAI.generateFlashcards(topic)
@@ -20,21 +22,25 @@ export default function Generate() {
     if (!topic.trim()) return;
     setIsGenerating(true);
     setProgress(0);
-    setShowSuccess(false);
+    setRequestStatus('idle');
 
     const interval = setInterval(() => {
       setProgress((prev) => Math.min(prev + 5, 90));
     }, 250);
     try {
       await onGenerateHandler();
-      setShowSuccess(true);
+      setRequestStatus('success');
+    }catch(error){
+      const message = error instanceof Error ? error.message : "An unexpected error occurred";
+      setErrorText(message);
+      setRequestStatus('error');
     } finally {
       clearInterval(interval);
       setProgress(100);
       setTimeout(() => {
         setIsGenerating(false);
         setProgress(0);
-        setShowSuccess(false);
+        setRequestStatus('idle');
       }, 1200);
     }
     setTopic("");
@@ -60,7 +66,7 @@ export default function Generate() {
         >
           {uiText.generate.generateButton}
         </Button>
-        <GenerationStatus showSuccess={showSuccess}/>
+        <GenerationStatus requestStatus={requestStatus} errorText={errorText}/>
       </form>
     </div>
   );

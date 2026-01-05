@@ -1,33 +1,46 @@
+import type { Flashcard } from "@/types/flashcard";
 import type { PromptFlashcard } from "@/types/promptFlashcard";
+import { nanoid } from "nanoid";
 
 type ApiResponseWrapper = {
-  flashcards: PromptFlashcard[]
-}
+  flashcards: PromptFlashcard[];
+};
 
 export default class GeneratorAI {
-  public static async generateFlashcards(topic: string): Promise<PromptFlashcard[]> {
-      const response = await this.sendRequest(topic);
-      if (!response.ok) {
-        throw new Error(
-          `HTTP error: ${response.status} ${response.statusText}`
-        );
-      }
-      const parsed = await this.formatResponse(response);
-      // Ensure it's an array
-      if (Array.isArray(parsed)) {
-        return parsed;
-      }
+  public static async generateFlashcards(
+    topic: string
+  ): Promise<Flashcard[]> {
+    const response = await this.sendRequest(topic);
+    if (!response.ok) {
+      throw new Error(`HTTP error: ${response.status} ${response.statusText}`);
+    }
+    const parsed = await this.formatResponse(response);
+    // Ensure it's an array
+    if (Array.isArray(parsed)) {
+      const flashcards=this.generateUniqueIds(parsed);
+      return flashcards;
+    }
 
-      // Some models may wrap in {flashcards: [...]}
-      if ('flashcards' in parsed && Array.isArray(parsed.flashcards)) {
-        return parsed.flashcards;
-      }
+    // Some models may wrap in {flashcards: [...]}
+    if ("flashcards" in parsed && Array.isArray(parsed.flashcards)) {
+      const flashcards=this.generateUniqueIds(parsed.flashcards);
+      return flashcards;
+    }
 
-      console.warn("Unexpected JSON shape:", parsed);
-      return [];
+    console.warn("Unexpected JSON shape:", parsed);
+    return [];
   }
 
-    private static async sendRequest(topic: string): Promise<Response> {
+  private static generateUniqueIds(promptFlashcards: PromptFlashcard[]):Flashcard[] {
+    const flashcards = promptFlashcards.map(
+      (promptFlashcard: PromptFlashcard):Flashcard => {
+        return { id: nanoid(),...promptFlashcard };
+      }
+    );
+    return flashcards;
+  }
+
+  private static async sendRequest(topic: string): Promise<Response> {
     return await fetch("https://openrouter.ai/api/v1/chat/completions", {
       method: "POST",
       headers: {
@@ -52,7 +65,9 @@ export default class GeneratorAI {
     });
   }
 
-  private static async formatResponse(response: Response): Promise<PromptFlashcard[]|ApiResponseWrapper> {
+  private static async formatResponse(
+    response: Response
+  ): Promise<PromptFlashcard[] | ApiResponseWrapper> {
     const data = await response.json();
     let text = data.choices?.[0]?.message?.content ?? "";
 
@@ -64,6 +79,6 @@ export default class GeneratorAI {
     console.log("🔍 Raw model output:", text);
 
     // return parsed JSON
-    return JSON.parse(text) as PromptFlashcard[]|ApiResponseWrapper;
+    return JSON.parse(text) as PromptFlashcard[] | ApiResponseWrapper;
   }
 }

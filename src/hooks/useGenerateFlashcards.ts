@@ -1,7 +1,7 @@
 import { useState, type FormEvent } from "react";
-import type { PromptFlashcard } from "@/types/promptFlashcard";
 import GeneratorAI from "@/api/GeneratorAI";
 import type { RequestStatus } from "@/types/requestStatus";
+import type { Flashcard } from "@/types/flashcard";
 
 export function useGenerateFlashcards() {
   const [topic, setTopic] = useState("");
@@ -9,8 +9,9 @@ export function useGenerateFlashcards() {
   const [isGenerating, setIsGenerating] = useState(false);
   const [requestStatus, setRequestStatus] = useState<RequestStatus>("idle");
   const [errorText, setErrorText] = useState("");
+  const [generatedCards,setGeneratedCards]=useState<Flashcard[]>();
 
-  const onGenerateHandler = async (): Promise<PromptFlashcard[]> =>
+  const onGenerateHandler = async (): Promise<Flashcard[]> =>
     await GeneratorAI.generateFlashcards(topic);
 
   const handleSubmit = async (event: FormEvent) => {
@@ -24,7 +25,7 @@ export function useGenerateFlashcards() {
       setProgress((prev) => Math.min(prev + 5, 90));
     }, 250);
     try {
-      await onGenerateHandler();
+      setGeneratedCards(await onGenerateHandler());
       setRequestStatus("success");
     } catch (error) {
       const message =
@@ -50,6 +51,7 @@ export function useGenerateFlashcards() {
     errorText,
     handleSubmit,
     topic,
-    setTopic
+    setTopic,
+    generatedCards
   };
 }

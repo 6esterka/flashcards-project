@@ -11,28 +11,28 @@ const initialCards: Flashcard[] = [
     question: "What is the capital of France?",
     answer: "Paris",
     isLearned: false,
-    groupName:"Custom"
+    groupName: "Custom"
   },
   {
     id: nanoid(),
     question: "What is the largest planet in our solar system?",
     answer: "Jupiter",
     isLearned: false,
-    groupName:"Custom"
+    groupName: "Custom"
   },
   {
     id: nanoid(),
     question: "What is the chemical symbol for water?",
     answer: "H2O",
     isLearned: false,
-    groupName:"Custom"
+    groupName: "Custom"
   },
   {
     id: nanoid(),
     question: 'Who wrote "To Kill a Mockingbird"?',
     answer: "Harper Lee",
     isLearned: false,
-    groupName:"Custom"
+    groupName: "Custom"
   },
 ];
 
@@ -71,12 +71,12 @@ export function useFlashcards() {
   }, []);
 
   useEffect(() => {
-  if (filteredFlashcards.length === 0) {
-    setCurrentCardIndex(0);
-  } else if (currentCardIndex >= filteredFlashcards.length) {
-    setCurrentCardIndex(0);
-  }
-}, [filteredFlashcards, currentCardIndex]);
+    if (filteredFlashcards.length === 0) {
+      setCurrentCardIndex(0);
+    } else if (currentCardIndex >= filteredFlashcards.length) {
+      setCurrentCardIndex(0);
+    }
+  }, [filteredFlashcards, currentCardIndex]);
 
   useEffect(() => {
     if (!loading) {
@@ -120,7 +120,7 @@ export function useFlashcards() {
       question,
       answer,
       isLearned: false,
-      groupName:"Custom"
+      groupName: "Custom"
     };
     setCards((cardsArray) => [...cardsArray, newCard]);
   };
@@ -135,7 +135,7 @@ export function useFlashcards() {
         // const deleteCardIndex = cardsArray.findIndex((card) => card.id === id);
 
         const newIndex = Math.min(currentCardIndex, newCards.length - 1);
-        setCurrentCardIndex(Math.max(newIndex , 0));
+        setCurrentCardIndex(Math.max(newIndex, 0));
         return newCards;
       });
       setPendingDeleteId(null);

@@ -11,6 +11,7 @@ export default function GeneratedCardLog({ generatedCards }: GeneratedCardLogPro
             <div key={card.id}>
                 <p>{card.question}</p>
                 <p>{card.answer}</p>
+                <p>{card.groupName}</p>
             </div>
         ))}
     </>

@@ -17,13 +17,13 @@ export default class GeneratorAI {
     const parsed = await this.formatResponse(response);
     // Ensure it's an array
     if (Array.isArray(parsed)) {
-      const flashcards=this.generateUniqueIds(parsed);
+      const flashcards=this.buildFlashcard(parsed,topic);
       return flashcards;
     }
 
     // Some models may wrap in {flashcards: [...]}
     if ("flashcards" in parsed && Array.isArray(parsed.flashcards)) {
-      const flashcards=this.generateUniqueIds(parsed.flashcards);
+      const flashcards=this.buildFlashcard(parsed.flashcards,topic);
       return flashcards;
     }
 
@@ -31,10 +31,10 @@ export default class GeneratorAI {
     return [];
   }
 
-  private static generateUniqueIds(promptFlashcards: PromptFlashcard[]):Flashcard[] {
+  private static buildFlashcard(promptFlashcards: PromptFlashcard[],groupName:string):Flashcard[] {
     const flashcards = promptFlashcards.map(
       (promptFlashcard: PromptFlashcard):Flashcard => {
-        return { id: nanoid(),...promptFlashcard };
+        return { id: nanoid(),...promptFlashcard ,groupName:groupName  };
       }
     );
     return flashcards;

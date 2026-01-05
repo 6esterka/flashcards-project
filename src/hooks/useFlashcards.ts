@@ -1,33 +1,38 @@
 import { useState, useEffect } from "react";
 import type { Flashcard } from "@/types/flashcard";
 import { FilterOption } from "@/enums/filterOption";
+import { nanoid } from "nanoid";
 
 const STORAGE_KEY = "ai-flashcards";
 
 const initialCards: Flashcard[] = [
   {
-    id: "1",
+    id: nanoid(),
     question: "What is the capital of France?",
     answer: "Paris",
     isLearned: false,
+    groupName:"Custom"
   },
   {
-    id: "2",
+    id: nanoid(),
     question: "What is the largest planet in our solar system?",
     answer: "Jupiter",
     isLearned: false,
+    groupName:"Custom"
   },
   {
-    id: "3",
+    id: nanoid(),
     question: "What is the chemical symbol for water?",
     answer: "H2O",
     isLearned: false,
+    groupName:"Custom"
   },
   {
-    id: "4",
+    id: nanoid(),
     question: 'Who wrote "To Kill a Mockingbird"?',
     answer: "Harper Lee",
     isLearned: false,
+    groupName:"Custom"
   },
 ];
 
@@ -115,6 +120,7 @@ export function useFlashcards() {
       question,
       answer,
       isLearned: false,
+      groupName:"Custom"
     };
     setCards((cardsArray) => [...cardsArray, newCard]);
   };
@@ -129,7 +135,7 @@ export function useFlashcards() {
         // const deleteCardIndex = cardsArray.findIndex((card) => card.id === id);
 
         const newIndex = Math.min(currentCardIndex, newCards.length - 1);
-        setCurrentCardIndex(newIndex >= 0 ? newIndex : 0);
+        setCurrentCardIndex(Math.max(newIndex , 0));
         return newCards;
       });
       setPendingDeleteId(null);

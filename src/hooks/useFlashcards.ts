@@ -1,42 +1,44 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect,useMemo } from "react";
 import type { Flashcard } from "@/types/flashcard";
 import { FilterOption } from "@/enums/filterOption";
-import { nanoid } from "nanoid";
+import { useFlashcardStore } from "@/store/useFlashcardStore";
 
 const STORAGE_KEY = "ai-flashcards";
 
-const initialCards: Flashcard[] = [
-  {
-    id: nanoid(),
-    question: "What is the capital of France?",
-    answer: "Paris",
-    isLearned: false,
-    groupName: "Custom"
-  },
-  {
-    id: nanoid(),
-    question: "What is the largest planet in our solar system?",
-    answer: "Jupiter",
-    isLearned: false,
-    groupName: "Custom"
-  },
-  {
-    id: nanoid(),
-    question: "What is the chemical symbol for water?",
-    answer: "H2O",
-    isLearned: false,
-    groupName: "Custom"
-  },
-  {
-    id: nanoid(),
-    question: 'Who wrote "To Kill a Mockingbird"?',
-    answer: "Harper Lee",
-    isLearned: false,
-    groupName: "Custom"
-  },
-];
+//TODO Temporary solution will be reworked once dev will include FlashcardView and FlashcardStore properly
+// const initialCards: Flashcard[] = [
+//   {
+//     id: nanoid(),
+//     question: "What is the capital of France?",
+//     answer: "Paris",
+//     isLearned: false,
+//     groupName: "Custom"
+//   },
+//   {
+//     id: nanoid(),
+//     question: "What is the largest planet in our solar system?",
+//     answer: "Jupiter",
+//     isLearned: false,
+//     groupName: "Custom"
+//   },
+//   {
+//     id: nanoid(),
+//     question: "What is the chemical symbol for water?",
+//     answer: "H2O",
+//     isLearned: false,
+//     groupName: "Custom"
+//   },
+//   {
+//     id: nanoid(),
+//     question: 'Who wrote "To Kill a Mockingbird"?',
+//     answer: "Harper Lee",
+//     isLearned: false,
+//     groupName: "Custom"
+//   },
+// ];
 
-export function useFlashcards() {
+export function useFlashcardsFoo() {
+  const INITIAL_CARDS=useFlashcardStore((state)=>state.decks["Custom Deck"]);
   const [cards, setCards] = useState<Flashcard[]>([]);
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
   const [loading, setLoading] = useState(true);
@@ -59,11 +61,11 @@ export function useFlashcards() {
           const parsed: Flashcard[] = JSON.parse(stored);
           setCards(parsed);
         } else {
-          setCards(initialCards);
+          setCards(INITIAL_CARDS);
         }
       } catch (err) {
         console.error("Error during reading the local storage", err);
-        setCards(initialCards);
+        setCards(INITIAL_CARDS);
       } finally {
         setLoading(false);
       }
@@ -119,8 +121,7 @@ export function useFlashcards() {
       id: crypto.randomUUID(),
       question,
       answer,
-      isLearned: false,
-      groupName: "Custom"
+      isLearned: false
     };
     setCards((cardsArray) => [...cardsArray, newCard]);
   };
@@ -173,3 +174,149 @@ export function useFlashcards() {
     setIsAddFlashcardFormOpen,
   };
 }
+
+export function useFlashcards(){
+  //TODO Work in progress should get rid of prop drill for addCard and other hooks 
+  //Zustand Store
+  const selectedGroupName=useFlashcardStore((store)=>store.selectedGroupName);
+  //TODO Put instead store.decks["Custom Deck"] [] once I'll represent groupName selection
+  const cards = useFlashcardStore((store)=> selectedGroupName ? store.decks[selectedGroupName]:store.decks["Custom Deck"]);
+  const updateCard = useFlashcardStore((store)=> store.updateCard);
+  const addCardToStore=useFlashcardStore((store)=>store.addCard);
+  const resetStore=useFlashcardStore((store)=>store.resetStore);
+
+  //Local UI State
+  const [currentCardIndex,setCurrentCardIndex]=useState(0);
+  const [pendingDeleteId,setPendingDeleteId]=useState<string|null>(null);
+  const [editingCardId,setEditingCardId]=useState<string|null>(null);
+  const [filter,setFilter]=useState<FilterOption>(FilterOption.All);
+  const [isAddFlashcardFormOpen,setIsAddFlashcardFormOpen]=useState(false);
+  
+  const filteredFlashcards =useMemo(()=>{
+    return cards.filter((card)=>{
+      if(filter===FilterOption.Learned) return card.isLearned;
+      if(filter===FilterOption.New) return !card.isLearned;
+      return true;
+    })
+  },[cards,filter])
+
+  const currentCard=filteredFlashcards[currentCardIndex];
+
+  //Handlers
+  const moveNextHandler=()=>{
+    setCurrentCardIndex(prev=>Math.min(prev+1,filteredFlashcards.length-1));
+  }
+
+  const movePreviousHandler=()=>{
+    setCurrentCardIndex(prev=>Math.max(prev-1,0));
+  }
+
+  const markAsLearnedHandler=()=>{
+    if(currentCard&&selectedGroupName){
+      updateCard(selectedGroupName,{...currentCard,isLearned:true})
+    }
+  }
+
+  const requestDeleteCard=(id:string)=>{
+    setPendingDeleteId(id);
+    setTimeout(()=>{
+      useFlashcardStore.getState().deleteCard(selectedGroupName!, id);
+      setPendingDeleteId(null);
+    },300)
+  };
+
+  const cardToEdit=cards.find((card) => card.id === editingCardId);
+  return{
+    filteredFlashcards,
+    currentCard,
+    currentCardIndex,
+    moveNextHandler,
+    movePreviousHandler,
+    markAsLearnedHandler,
+    requestDeleteCard,
+    pendingDeleteId,
+    setEditingCardId,
+    editingCardId,
+    filter,
+    setFilter,
+    isAddFlashcardFormOpen,
+    setIsAddFlashcardFormOpen,
+    cardToEdit,
+    resetStore
+  };
+}
+//TODO Suggested refactoring for making it Senior Look like
+// import { useState, useMemo } from "react";
+// import type { Flashcard } from "@/types/flashcard";
+// import { FilterOption } from "@/enums/filterOption";
+// import { useFlashcardStore } from "@/store/useFlashcardStore";
+
+// export function useFlashcards() {
+//   // 1. Get Data and Actions from Zustand
+//   const selectedGroupName = useFlashcardStore((s) => s.selectedGroupName);
+//   const cards = useFlashcardStore((s) => selectedGroupName ? s.decks[selectedGroupName] : []);
+//   const updateCard = useFlashcardStore((s) => s.updateCard); // You should add this to your store
+//   const addCardToStore = useFlashcardStore((s) => s.addCard); // You should add this to your store
+
+//   // 2. Local UI State (Does not need to persist globally)
+//   const [currentCardIndex, setCurrentCardIndex] = useState(0);
+//   const [pendingDeleteId, setPendingDeleteId] = useState<string | null>(null);
+//   const [editingCardId, setEditingCardId] = useState<string | null>(null);
+//   const [filter, setFilter] = useState<FilterOption>(FilterOption.All);
+//   const [isAddFlashcardFormOpen, setIsAddFlashcardFormOpen] = useState(false);
+
+//   // 3. Derived State (Filtered Cards)
+//   const filteredFlashcards = useMemo(() => {
+//     return cards.filter((card) => {
+//       if (filter === FilterOption.Learned) return card.isLearned;
+//       if (filter === FilterOption.New) return !card.isLearned;
+//       return true;
+//     });
+//   }, [cards, filter]);
+
+//   const currentCard = filteredFlashcards[currentCardIndex];
+
+//   // 4. Clean Handlers
+//   const moveNextHandler = () => {
+//     setCurrentCardIndex(prev => Math.min(prev + 1, filteredFlashcards.length - 1));
+//   };
+
+//   const movePreviousHandler = () => {
+//     setCurrentCardIndex(prev => Math.max(prev - 1, 0));
+//   };
+
+//   const markAsLearnedHandler = () => {
+//     if (currentCard && selectedGroupName) {
+//       updateCard(selectedGroupName, { ...currentCard, isLearned: true });
+//     }
+//   };
+
+//   const requestDeleteCard = (id: string) => {
+//     setPendingDeleteId(id);
+//     // You can keep the timeout for your exit animation
+//     setTimeout(() => {
+//       // Call Zustand delete action
+//       useFlashcardStore.getState().deleteCard(selectedGroupName!, id);
+//       setPendingDeleteId(null);
+//     }, 300);
+//   };
+
+//   return {
+//     filteredFlashcards,
+//     currentCard,
+//     currentCardIndex,
+//     moveNextHandler,
+//     movePreviousHandler,
+//     markAsLearnedHandler,
+//     requestDeleteCard,
+//     pendingDeleteId,
+//     setEditingCardId,
+//     editingCardId,
+//     filter,
+//     setFilter,
+//     isAddFlashcardFormOpen,
+//     setIsAddFlashcardFormOpen,
+//     // Note: cardToEdit is just a simple find
+//     cardToEdit: cards.find(c => c.id === editingCardId),
+//   };
+// }

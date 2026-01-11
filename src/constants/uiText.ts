@@ -14,6 +14,7 @@ export const uiText={
             learned:"Learned"
         },
         noCardIndicator:"No flashcards yet for this group",
+        resetStoreButton:"Reset Store",
         removeCardButton:"Remove card",
         navControls:{
             cardCounter:(currentIndex:number,total:number)=>`Card ${currentIndex+1} of ${total}`,

@@ -10,8 +10,11 @@ import EditFlashcardModal from "@/components/homeComponents/EditFlashcardModal";
 import type { Flashcard } from "@/types/flashcard";
 import FilterButtons from "@/components/homeComponents/FilterButtons";
 import CreateFlashcardButton from "@/components/homeComponents/CreateFlashcardButton";
+import { Button } from "@/components/ui/customButton/Button";
+import { uiText } from "@/constants/uiText";
 
 export default function Home() {
+  //TODO L: Left on setting resetStore button
   const {
     filteredFlashcards,
     currentCard,
@@ -19,7 +22,7 @@ export default function Home() {
     moveNextHandler,
     movePreviousHandler,
     markAsLearnedHandler,
-    addCard,
+    // addCard,
     requestDeleteCard,
     pendingDeleteId,
     loading,
@@ -31,6 +34,7 @@ export default function Home() {
     setFilter,
     isAddFlashcardFormOpen,
     setIsAddFlashcardFormOpen,
+    resetStore,
   } = useFlashcards();
   if (loading) {
     return (
@@ -68,6 +72,9 @@ export default function Home() {
           onClose={() => setIsAddFlashcardFormOpen(false)}
         />
       )}
+      <Button className="mt-6" variant="secondary" onClick={resetStore}>
+        {uiText.home.resetStoreButton}
+      </Button>
       {editingCardId && (
         <EditFlashcardModal
           onClose={() => setEditingCardId(null)}

@@ -225,7 +225,6 @@ export function useFlashcards(){
     },300)
   };
 
-  const cardToEdit=cards.find((card) => card.id === editingCardId);
   return{
     filteredFlashcards,
     currentCard,
@@ -241,10 +240,7 @@ export function useFlashcards(){
     setFilter,
     isAddFlashcardFormOpen,
     setIsAddFlashcardFormOpen,
-    cardToEdit,
-    resetStore,
-    updateCard,
-    selectedGroupName
+    resetStore
   };
 }
 //TODO Suggested refactoring for making it Senior Look like

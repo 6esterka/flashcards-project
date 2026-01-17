@@ -7,14 +7,12 @@ import AddFlashcardForm from "@/components/homeComponents/AddFlashcardForm";
 import LoadingIndicator from "@/components/homeComponents/LoadingIndicator";
 import NoFlashcardIndicator from "@/components/homeComponents/NoFlashcardComponent";
 import EditFlashcardModal from "@/components/homeComponents/EditFlashcardModal";
-import type { Flashcard } from "@/types/flashcard";
 import FilterButtons from "@/components/homeComponents/FilterButtons";
 import CreateFlashcardButton from "@/components/homeComponents/CreateFlashcardButton";
 import { Button } from "@/components/ui/customButton/Button";
 import { uiText } from "@/constants/uiText";
 
 export default function Home() {
-  //TODO L: Left on setting resetStore button
   const {
     filteredFlashcards,
     currentCard,
@@ -28,14 +26,11 @@ export default function Home() {
     // loading,
     setEditingCardId,
     editingCardId,
-    cardToEdit,
     filter,
     setFilter,
     isAddFlashcardFormOpen,
     setIsAddFlashcardFormOpen,
-    resetStore,
-    updateCard,
-    selectedGroupName
+    resetStore
   } = useFlashcards();
   const loading=null;
   if (loading) {
@@ -80,11 +75,8 @@ export default function Home() {
       {editingCardId && (
         <EditFlashcardModal
           onClose={() => setEditingCardId(null)}
-          editFlashcard={cardToEdit!}
-          onSave={(id: string, updatedFields: Partial<Flashcard>) => {
-            updateCard(selectedGroupName,id, updatedFields);
-            setEditingCardId(null);
-          }}
+          editingCardId={editingCardId}
+          setEditingCardId={setEditingCardId}
         />
       )}
     </div>

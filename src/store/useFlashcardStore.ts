@@ -8,8 +8,13 @@ interface FlashcardStore {
   selectedGroupName: string | null;
   addDeck: (groupName: string, cards: Flashcard[]) => void;
   selectGroup: (groupName: string) => void;
-  deleteCard: (groupName:string,cardId:string)=>void;
-  resetStore: ()=>void;
+  deleteCard: (groupName: string, cardId: string) => void;
+  resetStore: () => void;
+  updateCard: (
+    groupName: string|null,
+    cardId: string,
+    updatedFields: Partial<Flashcard>
+  ) => void;
 }
 
 const INITIAL_DATA: Record<string, Flashcard[]> = {
@@ -52,16 +57,36 @@ export const useFlashcardStore = create<FlashcardStore>()(
           decks: { ...state.decks, [groupName]: cards },
         }));
       },
-      resetStore: () => set({ 
-        decks: INITIAL_DATA
-      }),
+      resetStore: () =>
+        set({
+          decks: INITIAL_DATA,
+        }),
       selectGroup: (groupName) => set({ selectedGroupName: groupName }),
-      deleteCard: (groupName:string,cardId:string)=>set((state)=>({
-        decks: {
+      deleteCard: (groupName: string, cardId: string) =>
+        set((state) => ({
+          decks: {
             ...state.decks,
-            [groupName]:state.decks[groupName].filter((card)=>card.id!==cardId)
-        }
-      }))
+            [groupName]: state.decks[groupName].filter(
+              (card) => card.id !== cardId
+            ),
+          },
+        })),
+      updateCard: (
+        groupName: string|null,
+        cardId: string,
+        updatedFields: Partial<Flashcard>
+      ) =>
+        set((state) => {
+          const currentGroupCards = state.decks[groupName!] || [];
+          const updatedCards = currentGroupCards.map((cardItem: Flashcard) => {
+            return cardItem.id === cardId
+              ? { ...cardItem, ...updatedFields }
+              : cardItem;
+          });
+          return {
+            decks: { ...state.decks, [groupName!]: updatedCards },
+          };
+        }),
     }),
     { name: "flashcard-storage" }
   )

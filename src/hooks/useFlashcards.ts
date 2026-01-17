@@ -213,7 +213,7 @@ export function useFlashcards(){
 
   const markAsLearnedHandler=()=>{
     if(currentCard&&selectedGroupName){
-      updateCard(selectedGroupName,{...currentCard,isLearned:true})
+      updateCard(selectedGroupName,currentCard.id,{isLearned:true})
     }
   }
 
@@ -242,7 +242,9 @@ export function useFlashcards(){
     isAddFlashcardFormOpen,
     setIsAddFlashcardFormOpen,
     cardToEdit,
-    resetStore
+    resetStore,
+    updateCard,
+    selectedGroupName
   };
 }
 //TODO Suggested refactoring for making it Senior Look like

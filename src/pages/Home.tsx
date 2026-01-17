@@ -25,17 +25,19 @@ export default function Home() {
     // addCard,
     requestDeleteCard,
     pendingDeleteId,
-    loading,
+    // loading,
     setEditingCardId,
     editingCardId,
-    updateCard,
     cardToEdit,
     filter,
     setFilter,
     isAddFlashcardFormOpen,
     setIsAddFlashcardFormOpen,
     resetStore,
+    updateCard,
+    selectedGroupName
   } = useFlashcards();
+  const loading=null;
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-100">
@@ -80,7 +82,7 @@ export default function Home() {
           onClose={() => setEditingCardId(null)}
           editFlashcard={cardToEdit!}
           onSave={(id: string, updatedFields: Partial<Flashcard>) => {
-            updateCard(id, updatedFields);
+            updateCard(selectedGroupName,id, updatedFields);
             setEditingCardId(null);
           }}
         />

@@ -20,19 +20,17 @@ export default function Home() {
     moveNextHandler,
     movePreviousHandler,
     markAsLearnedHandler,
-    // addCard,
     requestDeleteCard,
     pendingDeleteId,
-    // loading,
     setEditingCardId,
     editingCardId,
     filter,
     setFilter,
     isAddFlashcardFormOpen,
     setIsAddFlashcardFormOpen,
-    resetStore
+    resetStore,
+    loading
   } = useFlashcards();
-  const loading=null;
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-100">
@@ -65,7 +63,6 @@ export default function Home() {
       <CreateFlashcardButton onCreate={() => setIsAddFlashcardFormOpen(true)} />
       {isAddFlashcardFormOpen && (
         <AddFlashcardForm
-          onAddFlashcard={addCard}
           onClose={() => setIsAddFlashcardFormOpen(false)}
         />
       )}

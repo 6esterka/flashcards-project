@@ -30,8 +30,8 @@ const EditFlashcardModal: React.FC<EditFlashcardModalProps> = ({
 
   const onSaveButtonClickHandler = (event: FormEvent) => {
     event.preventDefault();
-    if (!editFlashcard || !selectedGroupName) {
-      console.log("Missing group name or card data");
+    if (!editFlashcard) {
+      console.log("Missing edit flashcard");
       return;
     }
 
@@ -39,7 +39,7 @@ const EditFlashcardModal: React.FC<EditFlashcardModalProps> = ({
       alert("Please fill in both question and answer fields.");
       return;
     }
-    updateCard(selectedGroupName, editFlashcard.id, {
+    updateCard(editFlashcard.id, {
       question: question.trim(),
       answer: answer.trim(),
     });

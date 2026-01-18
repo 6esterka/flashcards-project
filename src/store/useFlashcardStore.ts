@@ -8,13 +8,10 @@ interface FlashcardStore {
   selectedGroupName: string | null;
   addDeck: (groupName: string, cards: Flashcard[]) => void;
   selectGroup: (groupName: string) => void;
-  deleteCard: (groupName: string, cardId: string) => void;
+  deleteCard: (cardId: string) => void;
   resetStore: () => void;
-  updateCard: (
-    groupName: string|null,
-    cardId: string,
-    updatedFields: Partial<Flashcard>
-  ) => void;
+  updateCard: (cardId: string, updatedFields: Partial<Flashcard>) => void;
+  addCard: (question: string, answer: string) => void;
 }
 
 const INITIAL_DATA: Record<string, Flashcard[]> = {
@@ -62,29 +59,54 @@ export const useFlashcardStore = create<FlashcardStore>()(
           decks: INITIAL_DATA,
         }),
       selectGroup: (groupName) => set({ selectedGroupName: groupName }),
-      deleteCard: (groupName: string, cardId: string) =>
-        set((state) => ({
-          decks: {
-            ...state.decks,
-            [groupName]: state.decks[groupName].filter(
-              (card) => card.id !== cardId
-            ),
-          },
-        })),
-      updateCard: (
-        groupName: string|null,
-        cardId: string,
-        updatedFields: Partial<Flashcard>
-      ) =>
+      deleteCard: (cardId: string) =>
         set((state) => {
-          const currentGroupCards = state.decks[groupName!] || [];
+          const groupName = state.selectedGroupName;
+          if (!groupName) {
+            console.warn("Attempted to delete card without a selected group");
+            return state;
+          }
+          return {
+            decks: {
+              ...state.decks,
+              [groupName]: state.decks[groupName].filter(
+                (card) => card.id !== cardId
+              ),
+            },
+          };
+        }),
+      updateCard: (cardId: string, updatedFields: Partial<Flashcard>) =>
+        set((state) => {
+          const groupName = state.selectedGroupName;
+          if (!groupName) {
+            console.warn("Attempted to update card without selected group");
+            return state;
+          }
+          const currentGroupCards = state.decks[groupName];
           const updatedCards = currentGroupCards.map((cardItem: Flashcard) => {
             return cardItem.id === cardId
               ? { ...cardItem, ...updatedFields }
               : cardItem;
           });
           return {
-            decks: { ...state.decks, [groupName!]: updatedCards },
+            decks: { ...state.decks, [groupName]: updatedCards },
+          };
+        }),
+      addCard: (question: string, answer: string) =>
+        set((state) => {
+          const groupName = state.selectedGroupName;
+          if (!groupName) {
+            console.warn("Attempted to add a card without selected group");
+            return state;
+          }
+          const newFlashcard = {
+            id: nanoid(),
+            question: question,
+            answer: answer,
+            isLearned: false,
+          };
+          return {
+            decks: { ...state.decks, [groupName]: [...state.decks[groupName],newFlashcard] },
           };
         }),
     }),

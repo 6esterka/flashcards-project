@@ -1,16 +1,16 @@
 import React, { type FormEvent, useState } from "react";
 import { Button } from "@/components/ui/customButton/Button";
 import { uiText } from "@/constants/uiText";
+import { useFlashcardStore } from "@/store/useFlashcardStore";
 
 interface AddFlashcardProps {
-  onAddFlashcard: (question: string, answer: string) => void;
   onClose: () => void;
 }
 
 const AddFlashcardForm: React.FC<AddFlashcardProps> = ({
-  onAddFlashcard,
-  onClose,
+  onClose
 }) => {
+  const addCard=useFlashcardStore((state)=>state.addCard);
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
   const handleSubmit = (event: FormEvent) => {
@@ -18,7 +18,7 @@ const AddFlashcardForm: React.FC<AddFlashcardProps> = ({
     const formattedQuestion = question.trim();
     const formattedAnswer = answer.trim();
     if (!formattedQuestion || !formattedAnswer) return;
-    onAddFlashcard(formattedQuestion, formattedAnswer);
+    addCard(formattedQuestion, formattedAnswer);
     setQuestion("");
     setAnswer("");
     onClose();

@@ -1,10 +1,11 @@
 import { NavLink } from "react-router-dom";
 import { useFlashcardStore } from "@/store/useFlashcardStore";
+import { uiText } from "@/constants/uiText";
 
 const navItems = [
-  { to: "/study", label: "Home" },
-  { to: "/stats", label: "Stats" },
-  { to: "/generate", label: "Generate" },
+  { to: "/study", label: uiText.home.pageRouteTitle },
+  { to: "/stats", label: uiText.stats.pageRouteTitle },
+  { to: "/generate", label: uiText.generate.pageRouteTitle},
 ];
 export default function NavigationRouter() {
   const selectedGroupName = useFlashcardStore(

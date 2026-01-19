@@ -1,5 +1,6 @@
 export const uiText={
     generate:{
+        pageRouteTitle:"Generate",
         pageTitle:"Generate Flashcards",
         inputPlaceHolder:"Enter a topic",
         generateButton:"Generate",
@@ -7,6 +8,7 @@ export const uiText={
         errorMessage: (errorText:string|undefined) => `Flashcards generation failed: ${errorText}`
     },
     home:{
+        pageRouteTitle:"Home",
         loadingIndicatorText:"Loading flashcards...",
         filterButton:{
             new:"New",
@@ -39,6 +41,10 @@ export const uiText={
         }
     },
     stats:{
+        pageRouteTitle:"Stats",
         pageTitle:"Stats"
+    },
+    deckLibrary:{
+        deckLibraryTitle:"Select the Group"
     }
 }

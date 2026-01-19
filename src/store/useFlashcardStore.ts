@@ -7,7 +7,7 @@ interface FlashcardStore {
   decks: Record<string, Flashcard[]>;
   selectedGroupName: string | null;
   addDeck: (groupName: string, cards: Flashcard[]) => void;
-  selectGroup: (groupName: string) => void;
+  selectGroup: (groupName: string|null) => void;
   deleteCard: (cardId: string) => void;
   resetStore: () => void;
   updateCard: (cardId: string, updatedFields: Partial<Flashcard>) => void;
@@ -48,7 +48,7 @@ export const useFlashcardStore = create<FlashcardStore>()(
     (set) => ({
       decks: INITIAL_DATA,
       //TODO Should return back to null after representing group selection page
-      selectedGroupName: "Custom Deck",
+      selectedGroupName: null,
       addDeck: (groupName, cards) => {
         set((state) => ({
           decks: { ...state.decks, [groupName]: cards },

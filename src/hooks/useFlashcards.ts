@@ -6,7 +6,7 @@ export function useFlashcards(){
   //Zustand Store
   const selectedGroupName=useFlashcardStore((store)=>store.selectedGroupName);
   //TODO Put instead store.decks["Custom Deck"] [] once I'll represent groupName selection
-  const cards = useFlashcardStore((store)=> selectedGroupName ? store.decks[selectedGroupName]:store.decks["Custom Deck"]);
+  const cards = useFlashcardStore((store)=> selectedGroupName ? store.decks[selectedGroupName]:[]);
   const updateCard = useFlashcardStore((store)=> store.updateCard);
   const resetStore=useFlashcardStore((store)=>store.resetStore);
 

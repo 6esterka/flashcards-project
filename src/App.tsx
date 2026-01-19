@@ -1,10 +1,11 @@
 import { Route, Routes, useLocation } from "react-router-dom";
-import NavigationRouter from "@/components/homeComponents/NavigationRouter";
+import NavigationRouter from "@/components/appComponents/NavigationRouter";
 import Home from "@/pages/Home";
 import Stats from "@/pages/Stats";
 import Generate from "@/pages/Generate";
 import AnimatedPage from "@/components/layout/AnimatedPage";
 import { AnimatePresence } from "framer-motion";
+import DeckLibrary from "@/pages/DeckLibrary";
 
 function App() {
   const location = useLocation();
@@ -14,8 +15,13 @@ function App() {
       <NavigationRouter />
       <AnimatePresence mode="wait">
         <Routes location={location} key={location.pathname}>
+          <Route path="/" element={
+            <AnimatedPage>
+              <DeckLibrary/>
+            </AnimatedPage>
+          }/>
           <Route
-            path="/"
+            path="/study/:groupName"
             element={
               <AnimatedPage>
                 <Home />

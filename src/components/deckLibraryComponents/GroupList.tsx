@@ -1,3 +1,4 @@
+import { uiText } from "@/constants/uiText";
 import { useFlashcardStore } from "@/store/useFlashcardStore";
 import { motion } from "framer-motion";
 import { useEffect } from "react";
@@ -11,9 +12,9 @@ export default function GroupList() {
     selectGroup(groupName);
     navigate(`/study/${groupName}`);
   };
-  //TODO 1 Should think how I may process nullifying groupName
-  //TODO 2 Should move translations to uiText
-  //TODO 3 Should create back button from Home
+  //TODO 1 Should think how I may process nullifying groupName 
+  //TODO 2 Should move translations to uiText ✅
+  //TODO 3 Should create back button from Home ✅
   //TODO 4 Should bind generation in Generate section and decks in Zustand
   //TODO 4.1 Should fix the CSS styling in DeckList to make it more App related
   //TODO (Additional step) Implement when the user last entered to the deck
@@ -46,17 +47,17 @@ export default function GroupList() {
           >
             <div className="flex justify-between items-start mb-6">
               <span className="text-sm font-bold px-3 py-1 bg-blue-50 text-blue-600 rounded-full">
-                {cards.length} Cards
+                {uiText.deckLibrary.groupList.cardLength(cards.length)}
               </span>
               <div className="text-2xl opacity-40 group-hover:opacity-100 transition-opacity">
-                →
+                {uiText.deckLibrary.groupList.arrowSign}
               </div>
             </div>
             <h2 className="text-2xl font-bold text-gray-800 mb-2">
               {groupName}
             </h2>
             <div className="text-gray-400 text-sm italic">
-              Last practiced: Just now
+              {uiText.deckLibrary.groupList.lastPracticedText}
             </div>
           </motion.div>
         ))}

@@ -15,11 +15,14 @@ function App() {
       <NavigationRouter />
       <AnimatePresence mode="wait">
         <Routes location={location} key={location.pathname}>
-          <Route path="/" element={
-            <AnimatedPage>
-              <DeckLibrary/>
-            </AnimatedPage>
-          }/>
+          <Route
+            path="/"
+            element={
+              <AnimatedPage>
+                <DeckLibrary />
+              </AnimatedPage>
+            }
+          />
           <Route
             path="/study/:groupName"
             element={

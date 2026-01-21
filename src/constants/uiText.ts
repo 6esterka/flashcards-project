@@ -45,6 +45,12 @@ export const uiText={
         pageTitle:"Stats"
     },
     deckLibrary:{
-        deckLibraryTitle:"Select the Group"
+        deckLibraryTitle:"Welcome to flashcards quiz",
+        deckLibrarySelectInfo: "Select the group to begin",
+        groupList:{
+            cardLength:(cardsLength:number)=> `${cardsLength} Cards`,
+            arrowSign:"→",
+            lastPracticedText:"Last practiced: Just now"
+        }
     }
 }

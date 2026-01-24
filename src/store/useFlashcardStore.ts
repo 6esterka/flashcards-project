@@ -6,8 +6,8 @@ import { nanoid } from "nanoid";
 interface FlashcardStore {
   decks: Record<string, Flashcard[]>;
   selectedGroupName: string | null;
-  addDeck: (groupName: string, cards: Flashcard[]) => void;
-  selectGroup: (groupName: string|null) => void;
+  addDeck: (groupName: string, cards: Flashcard[] | undefined) => void;
+  selectGroup: (groupName: string | null) => void;
   deleteCard: (cardId: string) => void;
   resetStore: () => void;
   updateCard: (cardId: string, updatedFields: Partial<Flashcard>) => void;
@@ -47,12 +47,22 @@ export const useFlashcardStore = create<FlashcardStore>()(
   persist(
     (set) => ({
       decks: INITIAL_DATA,
-      //TODO Should return back to null after representing group selection page
       selectedGroupName: null,
       addDeck: (groupName, cards) => {
-        set((state) => ({
-          decks: { ...state.decks, [groupName]: cards },
-        }));
+        if (!cards) {
+          throw new Error("Cards are undefined");
+        }
+        set((state) => {
+          const deckExists = groupName in state.decks;
+          return {
+            decks: {
+              ...state.decks,
+              [groupName]: deckExists
+                ? [...state.decks[groupName], ...cards]
+                : cards,
+            },
+          };
+        });
       },
       resetStore: () =>
         set({
@@ -106,7 +116,10 @@ export const useFlashcardStore = create<FlashcardStore>()(
             isLearned: false,
           };
           return {
-            decks: { ...state.decks, [groupName]: [...state.decks[groupName],newFlashcard] },
+            decks: {
+              ...state.decks,
+              [groupName]: [...state.decks[groupName], newFlashcard],
+            },
           };
         }),
     }),

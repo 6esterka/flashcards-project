@@ -3,7 +3,6 @@ import ProgressBar from "@/components/generateComponents/ProgressBar";
 import { uiText } from "@/constants/uiText";
 import GenerationStatus from "@/components/generateComponents/GenerationStatus";
 import { useGenerateFlashcards } from "@/hooks/useGenerateFlashcards";
-import GeneratedCardLog from "@/components/generateComponents/GeneratedCardLog";
 
 export default function Generate() {
   const {
@@ -13,8 +12,7 @@ export default function Generate() {
     errorText,
     handleSubmit,
     topic,
-    setTopic,
-    generatedCards
+    setTopic
   }=useGenerateFlashcards();
   return (
     <div className="p-6 max-w-lg mx-auto">
@@ -38,7 +36,6 @@ export default function Generate() {
           {uiText.generate.generateButton}
         </Button>
         <GenerationStatus requestStatus={requestStatus} errorText={errorText}/>
-        <GeneratedCardLog generatedCards={generatedCards}/>
       </form>
     </div>
   );

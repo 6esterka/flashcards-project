@@ -17,13 +17,13 @@ export default class GeneratorAI {
     const parsed = await this.formatResponse(response);
     // Ensure it's an array
     if (Array.isArray(parsed)) {
-      const flashcards=this.buildFlashcard(parsed,topic);
+      const flashcards=this.buildFlashcard(parsed);
       return flashcards;
     }
 
     // Some models may wrap in {flashcards: [...]}
     if ("flashcards" in parsed && Array.isArray(parsed.flashcards)) {
-      const flashcards=this.buildFlashcard(parsed.flashcards,topic);
+      const flashcards=this.buildFlashcard(parsed.flashcards);
       return flashcards;
     }
 
@@ -31,10 +31,10 @@ export default class GeneratorAI {
     return [];
   }
 
-  private static buildFlashcard(promptFlashcards: PromptFlashcard[],groupName:string):Flashcard[] {
+  private static buildFlashcard(promptFlashcards: PromptFlashcard[]):Flashcard[] {
     const flashcards = promptFlashcards.map(
       (promptFlashcard: PromptFlashcard):Flashcard => {
-        return { id: nanoid(),...promptFlashcard ,groupName:groupName  };
+        return { id: nanoid(),...promptFlashcard  };
       }
     );
     return flashcards;
@@ -45,22 +45,29 @@ export default class GeneratorAI {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${import.meta.env.VITE_OPENROUTER_API_KEY}`,
+        "Authorization": `Bearer ${import.meta.env.VITE_OPENROUTER_API_KEY}`,
+        "X-Title": "Flashcard App"
       },
       body: JSON.stringify({
-        model: "mistralai/mistral-small-3.1-24b-instruct:free", // free model
-        messages: [
+        "model": "openai/gpt-oss-120b:free",
+        "response_format": { "type": "json_object" }, // FORCES JSON output
+        "temperature": 0.3, // Lower temperature (0.3-0.5) is better for factual tasks
+        "messages": [
           {
-            role: "system",
-            content:
-              "You are a flashcard generator. Each answer should be unique don't repeat yourself. Output ONLY a JSON array of flashcards. Each object must have {question, answer, isLearned}. Always set isLearned: false. Do not include any text before or after the JSON.",
+            "role": "system",
+            "content": `You are a factual flashcard generator. 
+            RULES:
+            1. Accuracy is priority. If you are unsure of a fact, do not include it.
+            2. Format: Return ONLY a JSON object with a "flashcards" key containing an array.
+            3. Structure: Each object must have "question", "answer", and "isLearned" (always false).
+            4. No preamble or conversational filler. Only valid JSON.
+            5. If the topic is invalid or offensive, return: {"flashcards": []}.`
           },
           {
-            role: "user",
-            content: `Generate 5 flashcards about: ${topic}`,
+            "role": "user",
+            "content": `Generate exactly 5 high-quality, factual flashcards about the following topic: ${topic}`
           },
-        ],
-        temperature: 0.7,
+        ]
       }),
     });
   }

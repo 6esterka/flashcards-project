@@ -3,7 +3,9 @@ import { useFlashcardStore } from "@/store/useFlashcardStore";
 import { motion } from "framer-motion";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import clsx from "clsx";
 
+//TODO Make here optimizations increase code readability
 export default function GroupList() {
   const decks = useFlashcardStore((state) => state.decks);
   const selectGroup = useFlashcardStore((state) => state.selectGroup);
@@ -12,53 +14,81 @@ export default function GroupList() {
     selectGroup(groupName);
     navigate(`/study/${groupName}`);
   };
-  //TODO 1 Should think how I may process nullifying groupName 
-  //TODO 2 Should move translations to uiText ✅
-  //TODO 3 Should create back button from Home ✅
-  //TODO 4 Should bind generation in Generate section and decks in Zustand
-  //TODO 4.1 Should fix the CSS styling in DeckList to make it more App related
-  //TODO (Additional step) Implement when the user last entered to the deck
-  //TODO 5 Should discover how to use Graphs to display statistic about the Cards
-  //TODO 6 Implement the design of the Graphs
-  //TODO 7 Bind it to the whole data
-  //TODO 8 Write a description to the project 
-  //TODO 9 Write the unit tests
-    useEffect(() => {
-        selectGroup(null); 
-    },[]);
-    /* 
+  useEffect(() => {
+    selectGroup(null);
+  }, [selectGroup]);
+  /* 
         SCROLLABLE CONTAINER 
         - h-full: Uses available space
         - overflow-y-auto: Enables vertical scrolling
         - custom scrollbar classes for a sleek 2026 look
       */
   return (
-    <div className="flex-1 overflow-y-auto pr-2 custom-scrollbar">
+    <div className="flex-1 overflow-y-auto pr-4 pt-6 -mt-6 custom-scrollbar">
+      {/* Grid with 2026 spacing standards */}
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 pb-12">
-        {Object.entries(decks).map(([groupName, cards], index) => (
+        {Object.entries(decks).map(([groupName, cards]) => (
           <motion.div
             key={groupName}
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            whileHover={{ y: -8 }} // Subtle vertical lift
+            whileTap={{ scale: 0.98 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.3, delay: index * 0.05 }}
+            transition={{
+              duration: 0.2, // Faster duration
+              ease: "easeOut",
+            }}
             onClick={() => handleSelect(groupName)}
-            className="bg-white p-6 rounded-[2rem] shadow-sm border border-transparent hover:border-blue-500 hover:shadow-xl transition-all cursor-pointer group"
+            className={clsx(
+              "relative overflow-hidden cursor-pointer group",
+              "bg-white rounded-[2rem] p-7",
+              "border-2 border-transparent",
+              "shadow-[0_4px_20px_rgba(0,0,0,0.03)]",
+              "hover:border-[#556cd6]/20 hover:shadow-[0_20px_40px_rgba(85,108,214,0.1)]",
+              "transition-all duration-300"
+            )}
           >
-            <div className="flex justify-between items-start mb-6">
-              <span className="text-sm font-bold px-3 py-1 bg-blue-50 text-blue-600 rounded-full">
+            {/* Top Row: Badge & Action Icon */}
+            <div className="flex justify-between items-center mb-8">
+              <span className="text-xs font-bold tracking-wider uppercase px-4 py-1.5 bg-[#556cd6]/10 text-[#556cd6] rounded-full">
                 {uiText.deckLibrary.groupList.cardLength(cards.length)}
               </span>
-              <div className="text-2xl opacity-40 group-hover:opacity-100 transition-opacity">
-                {uiText.deckLibrary.groupList.arrowSign}
+              {/* Subtle Arrow matching GoBack style */}
+              <div className="w-8 h-8 rounded-full bg-slate-50 flex items-center justify-center text-[#556cd6] group-hover:bg-[#556cd6] group-hover:text-white transition-colors duration-300">
+                <svg
+                  className="w-4 h-4"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={3}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
               </div>
             </div>
-            <h2 className="text-2xl font-bold text-gray-800 mb-2">
-              {groupName}
-            </h2>
-            <div className="text-gray-400 text-sm italic">
+
+            {/* Title with Accent Color underline on hover */}
+            <div className="relative inline-block">
+              <h2 className="text-2xl font-extrabold text-slate-800 mb-2 group-hover:text-[#556cd6] transition-colors">
+                {groupName}
+              </h2>
+              <motion.div className="h-1 bg-[#e76f51] rounded-full w-0 group-hover:w-full transition-all duration-500" />
+            </div>
+
+            {/* Last Practiced Info */}
+            <div className="mt-4 flex items-center gap-2 text-slate-400 text-sm font-medium">
+              <div className="w-1.5 h-1.5 rounded-full bg-[#e76f51]" />{" "}
+              {/* Status Dot using Accent color */}
               {uiText.deckLibrary.groupList.lastPracticedText}
             </div>
+
+            {/* Subtle "Glass" background decoration (2026 Detail) */}
+            <div className="absolute -right-4 -bottom-4 w-24 h-24 bg-[#556cd6]/5 rounded-full blur-3xl group-hover:bg-[#e76f51]/10 transition-colors" />
           </motion.div>
         ))}
       </div>

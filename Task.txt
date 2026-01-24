@@ -26,3 +26,15 @@ Refactoring tasks
 2. Reformat types and interfaces and try to apply next rule 
     - interface for data contracts (often BE).
     - type for UI, logic, and composition.
+
+  //TODO 1 Should think how I may process nullifying groupName 
+  //TODO 2 Should move translations to uiText ✅
+  //TODO 3 Should create back button from Home ✅
+  //TODO 4 Should bind generation in Generate section and decks in Zustand
+  //TODO 4.1 Should fix the CSS styling in DeckList to make it more App related
+  //TODO (Additional step) Implement when the user last entered to the deck
+  //TODO 5 Should discover how to use Graphs to display statistic about the Cards
+  //TODO 6 Implement the design of the Graphs
+  //TODO 7 Bind it to the whole data
+  //TODO 8 Write a description to the project 
+  //TODO 9 Write the unit tests

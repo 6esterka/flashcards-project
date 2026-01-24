@@ -12,7 +12,7 @@ const navItems = [
 ];
 
 const navLinkStyles={
-  base:"relative px-4 py-2 rounded-2xl font-semibold transition-all duration-300 flex items-center justify-center h-10 text-sm tracking-wide",
+  base:"relative px-4 py-2 rounded-2xl font-semibold transition-all duration-200 flex items-center justify-center h-10 text-sm tracking-wide",
   active:"bg-[#556cd6] text-white shadow-[0_5px_15px_rgba(85,108,214,0.4)]",
   inactive:"text-slate-500 hover:text-[#556cd6] hover:bg-[#556cd6]/5"
 }

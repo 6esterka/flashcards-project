@@ -42,7 +42,8 @@ export const uiText={
     },
     stats:{
         pageRouteTitle:"Stats",
-        pageTitle:"Stats"
+        totalMasteryTitle:"Total Mastery",
+        learningProgressStatTitle:"Learning Progress by Deck"
     },
     deckLibrary:{
         deckLibraryTitle:"Welcome to flashcards quiz",

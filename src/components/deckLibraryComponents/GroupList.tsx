@@ -17,15 +17,10 @@ export default function GroupList() {
   useEffect(() => {
     selectGroup(null);
   }, [selectGroup]);
-  /* 
-        SCROLLABLE CONTAINER 
-        - h-full: Uses available space
-        - overflow-y-auto: Enables vertical scrolling
-        - custom scrollbar classes for a sleek 2026 look
-      */
+
   return (
     <div className="flex-1 overflow-y-auto pr-4 pt-6 -mt-6 custom-scrollbar">
-      {/* Grid with 2026 spacing standards */}
+      {/* Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 pb-12">
         {Object.entries(decks).map(([groupName, cards]) => (
           <motion.div
@@ -36,7 +31,7 @@ export default function GroupList() {
             whileTap={{ scale: 0.98 }}
             viewport={{ once: true }}
             transition={{
-              duration: 0.2, // Faster duration
+              duration: 0.2,
               ease: "easeOut",
             }}
             onClick={() => handleSelect(groupName)}
@@ -54,7 +49,7 @@ export default function GroupList() {
               <span className="text-xs font-bold tracking-wider uppercase px-4 py-1.5 bg-[#556cd6]/10 text-[#556cd6] rounded-full">
                 {uiText.deckLibrary.groupList.cardLength(cards.length)}
               </span>
-              {/* Subtle Arrow matching GoBack style */}
+              {/* Subtle Arrow */}
               <div className="w-8 h-8 rounded-full bg-slate-50 flex items-center justify-center text-[#556cd6] group-hover:bg-[#556cd6] group-hover:text-white transition-colors duration-300">
                 <svg
                   className="w-4 h-4"
@@ -80,14 +75,7 @@ export default function GroupList() {
               <motion.div className="h-1 bg-[#e76f51] rounded-full w-0 group-hover:w-full transition-all duration-500" />
             </div>
 
-            {/* Last Practiced Info */}
-            <div className="mt-4 flex items-center gap-2 text-slate-400 text-sm font-medium">
-              <div className="w-1.5 h-1.5 rounded-full bg-[#e76f51]" />{" "}
-              {/* Status Dot using Accent color */}
-              {uiText.deckLibrary.groupList.lastPracticedText}
-            </div>
-
-            {/* Subtle "Glass" background decoration (2026 Detail) */}
+            {/* Subtle "Glass" background decoration */}
             <div className="absolute -right-4 -bottom-4 w-24 h-24 bg-[#556cd6]/5 rounded-full blur-3xl group-hover:bg-[#e76f51]/10 transition-colors" />
           </motion.div>
         ))}

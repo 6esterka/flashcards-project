@@ -1,16 +1,15 @@
-import { motion,AnimatePresence } from "framer-motion"
+import { motion, AnimatePresence } from "framer-motion";
 
 interface ProgressBarProps {
-    readonly progress:number,
-    readonly isVisible:boolean
+  readonly progress: number;
+  readonly isVisible: boolean;
 }
 
-export default function ProgressBar({progress,isVisible}:ProgressBarProps){
-    return (
-        <AnimatePresence>
-            {
-                isVisible&&(
-                    <motion.div
+export default function ProgressBar({ progress, isVisible }: ProgressBarProps) {
+  return (
+    <AnimatePresence>
+      {isVisible && (
+        <motion.div
           className="fixed top-0 left-0 w-full h-2 bg-gray-800/50 z-50 overflow-hidden"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -22,8 +21,7 @@ export default function ProgressBar({progress,isVisible}:ProgressBarProps){
             transition={{ ease: "easeInOut", duration: 0.2 }}
           />
         </motion.div>
-                )
-            }
-        </AnimatePresence>
-    )
-};
+      )}
+    </AnimatePresence>
+  );
+}

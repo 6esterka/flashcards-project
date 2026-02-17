@@ -12,8 +12,8 @@ export default function Generate() {
     errorText,
     handleSubmit,
     topic,
-    setTopic
-  }=useGenerateFlashcards();
+    setTopic,
+  } = useGenerateFlashcards();
   return (
     <div className="p-6 max-w-lg mx-auto">
       <h1 className="text-2xl font-bold mb-4 text-center">
@@ -35,7 +35,7 @@ export default function Generate() {
         >
           {uiText.generate.generateButton}
         </Button>
-        <GenerationStatus requestStatus={requestStatus} errorText={errorText}/>
+        <GenerationStatus requestStatus={requestStatus} errorText={errorText} />
       </form>
     </div>
   );

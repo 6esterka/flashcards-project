@@ -16,14 +16,14 @@ const EditFlashcardModal: React.FC<EditFlashcardModalProps> = ({
 }) => {
   const updateCard = useFlashcardStore((state) => state.updateCard);
   const selectedGroupName = useFlashcardStore(
-    (state) => state.selectedGroupName
+    (state) => state.selectedGroupName,
   );
   const editFlashcard = useFlashcardStore((state) =>
     selectedGroupName
       ? state.decks[selectedGroupName]?.find(
-          (card) => card.id === editingCardId
+          (card) => card.id === editingCardId,
         )
-      : undefined
+      : undefined,
   );
   const [question, setQuestion] = useState(editFlashcard?.question ?? "");
   const [answer, setAnswer] = useState(editFlashcard?.answer ?? "");

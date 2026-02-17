@@ -18,7 +18,9 @@ function FilterButtons({
             key={option}
             onClick={() => onFilterChange(option)}
             className={`relative z-10 px-5 py-1.5 text-[15px] font-semibold transition-all duration-300 ${
-              currentFilter === option ? "text-[#556cd6]" : "text-white/40 hover:text-white/70"
+              currentFilter === option
+                ? "text-[#556cd6]"
+                : "text-white/40 hover:text-white/70"
             }`}
           >
             <span className="capitalize">{option.toLowerCase()}</span>

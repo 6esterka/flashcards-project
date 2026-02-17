@@ -9,16 +9,24 @@ interface FlashcardProps {
   onEdit: () => void;
 }
 
-const FlashcardComponent: React.FC<FlashcardProps> = ({ card, onDelete, isBeingDeleted, onEdit }) => {
+const FlashcardComponent: React.FC<FlashcardProps> = ({
+  card,
+  onDelete,
+  isBeingDeleted,
+  onEdit,
+}) => {
   const [flipped, setFlipped] = useState(false);
   if (!card) return null;
 
   const handleFlip = () => setFlipped((prev) => !prev);
 
   // Determine card styles
-  const baseClasses = "absolute w-full h-full backface-hidden flex items-center justify-center p-4 rounded-xl transition-all duration-500";
-  const frontClasses = "bg-white border-2 border-[#556cd6] shadow-md cursor-pointer";
-  const backClasses = "bg-[#3b4cc0] border-2 border-[#2f3a9a] shadow-md flex items-center justify-center text-gray-100";
+  const baseClasses =
+    "absolute w-full h-full backface-hidden flex items-center justify-center p-4 rounded-xl transition-all duration-500";
+  const frontClasses =
+    "bg-white border-2 border-[#556cd6] shadow-md cursor-pointer";
+  const backClasses =
+    "bg-[#3b4cc0] border-2 border-[#2f3a9a] shadow-md flex items-center justify-center text-gray-100";
 
   return (
     <div

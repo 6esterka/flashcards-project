@@ -20,10 +20,10 @@ const NavigationHomeControls: React.FC<Props> = ({
 }) => {
   return (
     <div className="flex flex-col items-center gap-4 mt-6 mb-2">
-      {cards.length>0&&(
+      {cards.length > 0 && (
         <p className="text-sm text-gray-600">
-          {uiText.home.navControls.cardCounter(currentIndex,cards.length)}
-      </p>
+          {uiText.home.navControls.cardCounter(currentIndex, cards.length)}
+        </p>
       )}
       <div className="flex gap-4">
         <Button
@@ -43,7 +43,7 @@ const NavigationHomeControls: React.FC<Props> = ({
         >
           {uiText.home.navControls.nextButton}
         </Button>
-        
+
         <Button
           onClick={onMarkAsLearned}
           variant="accent"

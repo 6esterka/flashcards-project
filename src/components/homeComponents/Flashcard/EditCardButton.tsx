@@ -1,10 +1,10 @@
-interface  EditCardButtonProps{
+interface EditCardButtonProps {
   onEdit: () => void;
 }
 
-const EditCardButton: React.FC<EditCardButtonProps> = ({onEdit}) => {
+const EditCardButton: React.FC<EditCardButtonProps> = ({ onEdit }) => {
   const onEditButtonClickHandler = (
-    event: React.MouseEvent<HTMLButtonElement>
+    event: React.MouseEvent<HTMLButtonElement>,
   ) => {
     event.stopPropagation();
     onEdit();

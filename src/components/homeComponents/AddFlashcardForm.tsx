@@ -7,10 +7,8 @@ interface AddFlashcardProps {
   onClose: () => void;
 }
 
-const AddFlashcardForm: React.FC<AddFlashcardProps> = ({
-  onClose
-}) => {
-  const addCard=useFlashcardStore((state)=>state.addCard);
+const AddFlashcardForm: React.FC<AddFlashcardProps> = ({ onClose }) => {
+  const addCard = useFlashcardStore((state) => state.addCard);
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
   const handleSubmit = (event: FormEvent) => {

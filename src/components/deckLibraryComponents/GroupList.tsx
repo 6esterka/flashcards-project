@@ -41,7 +41,7 @@ export default function GroupList() {
               "border-2 border-transparent",
               "shadow-[0_4px_20px_rgba(0,0,0,0.03)]",
               "hover:border-[#556cd6]/20 hover:shadow-[0_20px_40px_rgba(85,108,214,0.1)]",
-              "transition-all duration-300"
+              "transition-all duration-300",
             )}
           >
             {/* Top Row: Badge & Action Icon */}

@@ -14,7 +14,10 @@ export function useRipple() {
     const id = ++idRef.current;
 
     setRipples((prev) => [...prev, { x, y, size: diameter, id }]);
-    setTimeout(() => setRipples((prev) => prev.filter((r) => r.id !== id)), 450);
+    setTimeout(
+      () => setRipples((prev) => prev.filter((r) => r.id !== id)),
+      450,
+    );
   };
 
   return { ripples, createRipple };

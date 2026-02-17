@@ -1,5 +1,5 @@
-export type PromptFlashcard={
-    question:string;
-    answer:string;
-    isLearned:boolean;
-} 
+export type PromptFlashcard = {
+  question: string;
+  answer: string;
+  isLearned: boolean;
+};

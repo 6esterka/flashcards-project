@@ -1,4 +1,3 @@
-
 type RippleProps = {
   readonly ripples: { x: number; y: number; size: number; id: number }[];
   readonly variant: "primary" | "secondary" | "accent";

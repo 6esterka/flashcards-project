@@ -1,1 +1,1 @@
-export type RequestStatus= 'idle' | 'success' | 'error'
+export type RequestStatus = "idle" | "success" | "error";

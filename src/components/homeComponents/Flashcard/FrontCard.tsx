@@ -5,10 +5,10 @@ import RemoveCardButton from "@/components/homeComponents/Flashcard/RemoveCardBu
 interface FrontCardProps {
   card: Flashcard;
   onDelete: (id: string) => void;
-  onEdit:()=> void;
+  onEdit: () => void;
 }
 
-const FrontCard: React.FC<FrontCardProps> = ({ card, onDelete,onEdit }) => {
+const FrontCard: React.FC<FrontCardProps> = ({ card, onDelete, onEdit }) => {
   return (
     <div
       className="absolute w-full h-full 
@@ -16,7 +16,7 @@ const FrontCard: React.FC<FrontCardProps> = ({ card, onDelete,onEdit }) => {
         p-4 text-lg font-semibold"
     >
       <RemoveCardButton cardId={card.id} onDelete={onDelete} />
-      <EditCardButton onEdit={onEdit}/>
+      <EditCardButton onEdit={onEdit} />
       {card.question}
     </div>
   );

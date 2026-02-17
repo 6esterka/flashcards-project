@@ -27,7 +27,7 @@ export default function Home() {
     isAddFlashcardFormOpen,
     setIsAddFlashcardFormOpen,
     // resetStore,
-    loading
+    loading,
   } = useFlashcards();
   if (loading) {
     return (
@@ -60,9 +60,7 @@ export default function Home() {
       <ProgressStats cards={filteredFlashcards} />
       <CreateFlashcardButton onCreate={() => setIsAddFlashcardFormOpen(true)} />
       {isAddFlashcardFormOpen && (
-        <AddFlashcardForm
-          onClose={() => setIsAddFlashcardFormOpen(false)}
-        />
+        <AddFlashcardForm onClose={() => setIsAddFlashcardFormOpen(false)} />
       )}
       {/*TODO: Save this button here just in case of future development */}
       {/* <Button className="mt-6" variant="secondary" onClick={resetStore}>

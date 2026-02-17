@@ -1,16 +1,12 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: [
-    "./index.html",
-    "./src/**/*.{ts,tsx}",
-  ],
+  content: ["./index.html", "./src/**/*.{ts,tsx}"],
   theme: {
     extend: {
-      transformOrigin:{
-        'center':'center'
-      }
+      transformOrigin: {
+        center: "center",
+      },
     },
   },
   plugins: [],
-}
-
+};

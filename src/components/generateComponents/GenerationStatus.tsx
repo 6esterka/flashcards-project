@@ -2,12 +2,12 @@ import { AnimatePresence, motion } from "framer-motion"
 import { uiText } from "@/constants/uiText"
 import type { RequestStatus } from "@/types/requestStatus"
 
-interface GenerationStatus{
+interface GenerationStatusProps{
     readonly requestStatus:RequestStatus,
     readonly errorText?:string
 }
 
-export default function GenerationStatus({requestStatus,errorText}:GenerationStatus){
+export default function GenerationStatus({requestStatus,errorText}:GenerationStatusProps){
     return(<AnimatePresence>
         {/* Success message */}
         {requestStatus==="success" && (

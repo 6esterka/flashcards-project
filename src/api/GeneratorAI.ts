@@ -51,7 +51,7 @@ export default class GeneratorAI {
       body: JSON.stringify({
         "model": "openai/gpt-oss-120b:free",
         "response_format": { "type": "json_object" }, // FORCES JSON output
-        "temperature": 0.3, // Lower temperature (0.3-0.5) is better for factual tasks
+        "temperature": 0.3,
         "messages": [
           {
             "role": "system",

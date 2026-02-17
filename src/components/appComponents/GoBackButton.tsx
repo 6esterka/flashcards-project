@@ -1,6 +1,7 @@
 import { useFlashcardStore } from "@/store/useFlashcardStore";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/customButton/Button";
+import { uiText } from "@/constants/uiText";
 
 
 export default function GoBackButton(){
@@ -12,10 +13,9 @@ export default function GoBackButton(){
     if(!selectedGroupName){
         return null;
     }
-    //TODO Move the text into translation file
     return(
         <Button variant="goBack" onClick={returnBackHandle}>
-            <span className="mr-2">←</span> Back
+            <span className="mr-2">{uiText.general.goBackButtonArrow}</span> {uiText.general.goBackButtonText}
         </Button>
     );
 }

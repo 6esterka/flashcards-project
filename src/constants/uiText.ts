@@ -53,5 +53,9 @@ export const uiText={
             arrowSign:"→",
             lastPracticedText:"Last practiced: Just now"
         }
+    },
+    general:{
+        goBackButtonArrow:"←",
+        goBackButtonText:"Back"
     }
 }

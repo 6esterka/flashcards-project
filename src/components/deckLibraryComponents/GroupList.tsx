@@ -69,7 +69,7 @@ export default function GroupList() {
 
             {/* Title with Accent Color underline on hover */}
             <div className="relative inline-block">
-              <h2 className="text-2xl font-extrabold text-slate-800 mb-2 group-hover:text-[#556cd6] transition-colors">
+              <h2 className="capitalize text-2xl font-extrabold text-slate-800 mb-2 group-hover:text-[#556cd6] transition-colors">
                 {groupName}
               </h2>
               <motion.div className="h-1 bg-[#e76f51] rounded-full w-0 group-hover:w-full transition-all duration-500" />

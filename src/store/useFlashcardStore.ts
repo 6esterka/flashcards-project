@@ -6,7 +6,8 @@ import { nanoid } from "nanoid";
 interface FlashcardStore {
   decks: Record<string, Flashcard[]>;
   selectedGroupName: string | null;
-  addDeck: (groupName: string, cards: Flashcard[] | undefined) => void;
+  // Actions
+  addDeck: (groupName: string, cards: Flashcard[]) => void;
   selectGroup: (groupName: string | null) => void;
   deleteCard: (cardId: string) => void;
   resetStore: () => void;
@@ -45,84 +46,76 @@ const INITIAL_DATA: Record<string, Flashcard[]> = {
 
 export const useFlashcardStore = create<FlashcardStore>()(
   persist(
-    (set) => ({
+    (set, get) => ({
       decks: INITIAL_DATA,
-      selectedGroupName: null,
+      selectedGroupName: null as string | null,
       addDeck: (groupName, cards) => {
-        if (!cards) {
-          throw new Error("Cards are undefined");
-        }
-        set((state) => {
-          const deckExists = groupName in state.decks;
-          return {
-            decks: {
-              ...state.decks,
-              [groupName]: deckExists
-                ? [...state.decks[groupName], ...cards]
-                : cards,
-            },
-          };
-        });
+        const formattedGroupName = groupName.trim().toLowerCase();
+        set((state) => ({
+          decks: {
+            ...state.decks,
+            [formattedGroupName]: state.decks[formattedGroupName]
+              ? [...state.decks[formattedGroupName], ...cards]
+              : cards,
+          },
+        }));
       },
       resetStore: () =>
         set({
           decks: INITIAL_DATA,
         }),
       selectGroup: (groupName) => set({ selectedGroupName: groupName }),
-      deleteCard: (cardId: string) =>
-        set((state) => {
-          const groupName = state.selectedGroupName;
-          if (!groupName) {
-            console.warn("Attempted to delete card without a selected group");
-            return state;
-          }
-          return {
-            decks: {
-              ...state.decks,
-              [groupName]: state.decks[groupName].filter(
-                (card) => card.id !== cardId
-              ),
-            },
-          };
-        }),
-      updateCard: (cardId: string, updatedFields: Partial<Flashcard>) =>
-        set((state) => {
-          const groupName = state.selectedGroupName;
-          if (!groupName) {
-            console.warn("Attempted to update card without selected group");
-            return state;
-          }
-          const currentGroupCards = state.decks[groupName];
-          const updatedCards = currentGroupCards.map((cardItem: Flashcard) => {
-            return cardItem.id === cardId
-              ? { ...cardItem, ...updatedFields }
-              : cardItem;
-          });
-          return {
-            decks: { ...state.decks, [groupName]: updatedCards },
-          };
-        }),
-      addCard: (question: string, answer: string) =>
-        set((state) => {
-          const groupName = state.selectedGroupName;
-          if (!groupName) {
-            console.warn("Attempted to add a card without selected group");
-            return state;
-          }
-          const newFlashcard = {
-            id: nanoid(),
-            question: question,
-            answer: answer,
-            isLearned: false,
-          };
-          return {
-            decks: {
-              ...state.decks,
-              [groupName]: [...state.decks[groupName], newFlashcard],
-            },
-          };
-        }),
+      deleteCard: (cardId: string) => {
+        const groupName = get().selectedGroupName;
+        if (!groupName) return;
+
+        set((state) => ({
+          decks: {
+            ...state.decks,
+            [groupName]: state.decks[groupName].filter(
+              (card) => card.id !== cardId,
+            ),
+          },
+        }));
+      },
+      updateCard: (cardId: string, updatedFields: Partial<Flashcard>) => {
+        const groupName = get().selectedGroupName;
+        if (!groupName) return;
+
+        set((state) => ({
+          decks: {
+            ...state.decks,
+            [groupName]: state.decks[groupName].map((card) =>
+              card.id === cardId ? { ...card, ...updatedFields } : card,
+            ),
+          },
+        }));
+      },
+      addCard: (question: string, answer: string) => {
+        const groupName = get().selectedGroupName;
+        if (!groupName) return;
+
+        const newFlashcard = {
+          id: nanoid(),
+          question: question,
+          answer: answer,
+          isLearned: false,
+        };
+
+        set((state) => ({
+          decks: {
+            ...state.decks,
+            [groupName]: [...(state.decks[groupName] || []), newFlashcard],
+          },
+        }));
+      },
     }),
-    { name: "flashcard-storage" }
-  )
+    {
+      name: "flashcard-storage",
+      partialize: (state) => ({
+        decks: state.decks,
+        selectedGroupName: state.selectedGroupName,
+      }),
+    },
+  ),
 );

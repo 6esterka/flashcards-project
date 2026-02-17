@@ -9,8 +9,6 @@ import NoFlashcardIndicator from "@/components/homeComponents/NoFlashcardCompone
 import EditFlashcardModal from "@/components/homeComponents/EditFlashcardModal";
 import FilterButtons from "@/components/homeComponents/FilterButtons";
 import CreateFlashcardButton from "@/components/homeComponents/CreateFlashcardButton";
-import { Button } from "@/components/ui/customButton/Button";
-import { uiText } from "@/constants/uiText";
 
 export default function Home() {
   const {
@@ -28,7 +26,7 @@ export default function Home() {
     setFilter,
     isAddFlashcardFormOpen,
     setIsAddFlashcardFormOpen,
-    resetStore,
+    // resetStore,
     loading
   } = useFlashcards();
   if (loading) {
@@ -66,9 +64,10 @@ export default function Home() {
           onClose={() => setIsAddFlashcardFormOpen(false)}
         />
       )}
-      <Button className="mt-6" variant="secondary" onClick={resetStore}>
+      {/*TODO: Save this button here just in case of future development */}
+      {/* <Button className="mt-6" variant="secondary" onClick={resetStore}>
         {uiText.home.resetStoreButton}
-      </Button>
+      </Button> */}
       {editingCardId && (
         <EditFlashcardModal
           onClose={() => setEditingCardId(null)}

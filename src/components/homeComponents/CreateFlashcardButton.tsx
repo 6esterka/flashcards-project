@@ -2,10 +2,12 @@ import { uiText } from "@/constants/uiText";
 import { Button } from "@/components/ui/customButton/Button";
 
 interface CreateFlashcardButtonProps {
-  readonly onCreate: () => void;
+  onCreate: () => void;
 }
 
-function CreateFlashcardButton({ onCreate }: CreateFlashcardButtonProps) {
+export default function CreateFlashcardButton({
+  onCreate,
+}: Readonly<CreateFlashcardButtonProps>) {
   const onAddButtonClickHandler = (
     event: React.MouseEvent<HTMLButtonElement>,
   ) => {
@@ -22,5 +24,3 @@ function CreateFlashcardButton({ onCreate }: CreateFlashcardButtonProps) {
     </Button>
   );
 }
-
-export default CreateFlashcardButton;

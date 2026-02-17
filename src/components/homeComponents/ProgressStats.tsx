@@ -1,12 +1,11 @@
 import type { Flashcard } from "@/types/flashcard";
-import React from "react";
 import { uiText } from "@/constants/uiText";
 
-interface Props {
+interface ProgressStatsProps {
   cards: Flashcard[];
 }
 
-const ProgressStats: React.FC<Props> = ({ cards }) => {
+export default function ProgressStats({ cards }: Readonly<ProgressStatsProps>) {
   const learnedCount = cards.filter((card) => card.isLearned).length;
   const totalCount = cards.length;
 
@@ -19,6 +18,4 @@ const ProgressStats: React.FC<Props> = ({ cards }) => {
       </div>
     )
   );
-};
-
-export default ProgressStats;
+}

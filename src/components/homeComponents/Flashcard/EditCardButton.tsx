@@ -2,7 +2,9 @@ interface EditCardButtonProps {
   onEdit: () => void;
 }
 
-const EditCardButton: React.FC<EditCardButtonProps> = ({ onEdit }) => {
+export default function EditCardButton({
+  onEdit,
+}: Readonly<EditCardButtonProps>) {
   const onEditButtonClickHandler = (
     event: React.MouseEvent<HTMLButtonElement>,
   ) => {
@@ -24,6 +26,4 @@ const EditCardButton: React.FC<EditCardButtonProps> = ({ onEdit }) => {
       </svg>
     </button>
   );
-};
-
-export default EditCardButton;
+}

@@ -1,9 +1,9 @@
 type RippleProps = {
-  readonly ripples: { x: number; y: number; size: number; id: number }[];
-  readonly variant: "primary" | "secondary" | "accent";
+  ripples: { x: number; y: number; size: number; id: number }[];
+  variant: "primary" | "secondary" | "accent" | "goBack";
 };
 
-export function Ripple({ ripples, variant }: RippleProps) {
+export function Ripple({ ripples, variant }: Readonly<RippleProps>) {
   const getColor = (variant: string) => {
     if (variant === "primary") return "rgba(85,108,214,0.28)";
     if (variant === "secondary") return "rgba(244,162,97,0.28)";

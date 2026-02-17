@@ -8,7 +8,11 @@ interface FrontCardProps {
   onEdit: () => void;
 }
 
-const FrontCard: React.FC<FrontCardProps> = ({ card, onDelete, onEdit }) => {
+export default function FrontCard({
+  card,
+  onDelete,
+  onEdit,
+}: Readonly<FrontCardProps>) {
   return (
     <div
       className="absolute w-full h-full 
@@ -20,6 +24,4 @@ const FrontCard: React.FC<FrontCardProps> = ({ card, onDelete, onEdit }) => {
       {card.question}
     </div>
   );
-};
-
-export default FrontCard;
+}

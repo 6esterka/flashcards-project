@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import type { Flashcard } from "@/types/flashcard";
 import FrontCard from "@/components/homeComponents/Flashcard/FrontCard";
 
@@ -9,12 +9,12 @@ interface FlashcardProps {
   onEdit: () => void;
 }
 
-const FlashcardComponent: React.FC<FlashcardProps> = ({
+export default function FlashcardComponent({
   card,
   onDelete,
   isBeingDeleted,
   onEdit,
-}) => {
+}: Readonly<FlashcardProps>) {
   const [flipped, setFlipped] = useState(false);
   if (!card) return null;
 
@@ -52,6 +52,4 @@ const FlashcardComponent: React.FC<FlashcardProps> = ({
       </div>
     </div>
   );
-};
-
-export default FlashcardComponent;
+}

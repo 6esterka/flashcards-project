@@ -1,11 +1,14 @@
 import { motion, AnimatePresence } from "framer-motion";
 
 interface ProgressBarProps {
-  readonly progress: number;
-  readonly isVisible: boolean;
+  progress: number;
+  isVisible: boolean;
 }
 
-export default function ProgressBar({ progress, isVisible }: ProgressBarProps) {
+export default function ProgressBar({
+  progress,
+  isVisible,
+}: Readonly<ProgressBarProps>) {
   return (
     <AnimatePresence>
       {isVisible && (

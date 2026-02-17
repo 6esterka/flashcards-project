@@ -3,14 +3,14 @@ import { uiText } from "@/constants/uiText";
 import type { RequestStatus } from "@/types/requestStatus";
 
 interface GenerationStatusProps {
-  readonly requestStatus: RequestStatus;
-  readonly errorText?: string;
+  requestStatus: RequestStatus;
+  errorText?: string;
 }
 
 export default function GenerationStatus({
   requestStatus,
   errorText,
-}: GenerationStatusProps) {
+}: Readonly<GenerationStatusProps>) {
   return (
     <AnimatePresence>
       {/* Success message */}

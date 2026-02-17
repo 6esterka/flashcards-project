@@ -1,4 +1,4 @@
-import React, { type FormEvent, useState } from "react";
+import { type FormEvent, useState } from "react";
 import { Button } from "@/components/ui/customButton/Button";
 import { uiText } from "@/constants/uiText";
 import { useFlashcardStore } from "@/store/useFlashcardStore";
@@ -7,7 +7,9 @@ interface AddFlashcardProps {
   onClose: () => void;
 }
 
-const AddFlashcardForm: React.FC<AddFlashcardProps> = ({ onClose }) => {
+export default function AddFlashcardForm({
+  onClose,
+}: Readonly<AddFlashcardProps>) {
   const addCard = useFlashcardStore((state) => state.addCard);
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
@@ -68,6 +70,4 @@ const AddFlashcardForm: React.FC<AddFlashcardProps> = ({ onClose }) => {
       </form>
     </div>
   );
-};
-
-export default AddFlashcardForm;
+}

@@ -1,4 +1,4 @@
-import React, { useState, type FormEvent } from "react";
+import { useState, type FormEvent } from "react";
 import { Button } from "@/components/ui/customButton/Button";
 import { uiText } from "@/constants/uiText";
 import { useFlashcardStore } from "@/store/useFlashcardStore";
@@ -9,11 +9,11 @@ interface EditFlashcardModalProps {
   setEditingCardId: (editCardId: string | null) => void;
 }
 
-const EditFlashcardModal: React.FC<EditFlashcardModalProps> = ({
+export default function EditFlashcardModal({
   onClose,
   editingCardId,
   setEditingCardId,
-}) => {
+}: Readonly<EditFlashcardModalProps>) {
   const updateCard = useFlashcardStore((state) => state.updateCard);
   const selectedGroupName = useFlashcardStore(
     (state) => state.selectedGroupName,
@@ -88,6 +88,4 @@ const EditFlashcardModal: React.FC<EditFlashcardModalProps> = ({
       </form>
     </div>
   );
-};
-
-export default EditFlashcardModal;
+}

@@ -5,10 +5,10 @@ interface RemoveCardButtonProps {
   onDelete: (id: string) => void;
 }
 
-const RemoveCardButton: React.FC<RemoveCardButtonProps> = ({
+export default function RemoveCardButton({
   cardId,
   onDelete,
-}) => {
+}: Readonly<RemoveCardButtonProps>) {
   const onDeleteButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
     if (confirm("Would you like to remove the card?")) {
@@ -35,6 +35,4 @@ const RemoveCardButton: React.FC<RemoveCardButtonProps> = ({
       </svg>
     </button>
   );
-};
-
-export default RemoveCardButton;
+}

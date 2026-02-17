@@ -6,7 +6,7 @@ interface FilterButtonsProps {
   onFilterChange: (filter: FilterOption) => void;
 }
 
-function FilterButtons({
+export default function FilterButtons({
   currentFilter,
   onFilterChange,
 }: Readonly<FilterButtonsProps>) {
@@ -37,5 +37,3 @@ function FilterButtons({
     </div>
   );
 }
-
-export default FilterButtons;

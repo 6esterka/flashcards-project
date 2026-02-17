@@ -1,9 +1,8 @@
-import type React from "react";
 import type { Flashcard } from "@/types/flashcard";
 import { Button } from "@/components/ui/customButton/Button";
 import { uiText } from "@/constants/uiText";
 
-interface Props {
+interface NavigationHomeProps {
   currentIndex: number;
   cards: Flashcard[];
   onPrev: () => void;
@@ -11,13 +10,13 @@ interface Props {
   onMarkAsLearned: () => void;
 }
 
-const NavigationHomeControls: React.FC<Props> = ({
+export default function NavigationHomeControls({
   currentIndex,
   cards,
   onPrev,
   onNext,
   onMarkAsLearned,
-}) => {
+}: Readonly<NavigationHomeProps>) {
   return (
     <div className="flex flex-col items-center gap-4 mt-6 mb-2">
       {cards.length > 0 && (
@@ -55,6 +54,4 @@ const NavigationHomeControls: React.FC<Props> = ({
       </div>
     </div>
   );
-};
-
-export default NavigationHomeControls;
+}

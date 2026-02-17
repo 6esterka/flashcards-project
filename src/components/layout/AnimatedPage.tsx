@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import type { PropsWithChildren } from "react";
 
-function AnimatedPage({ children }: PropsWithChildren) {
+function AnimatedPage({ children }: Readonly<PropsWithChildren>) {
   return (
     <motion.main
       initial={{ opacity: 0, y: 10 }}

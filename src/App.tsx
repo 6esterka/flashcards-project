@@ -6,6 +6,7 @@ import Generate from "@/pages/Generate";
 import AnimatedPage from "@/components/layout/AnimatedPage";
 import { AnimatePresence } from "framer-motion";
 import DeckLibrary from "@/pages/DeckLibrary";
+import ScrollToTop from "@/components/appComponents/ScrollToTop";
 
 function App() {
   const location = useLocation();
@@ -13,6 +14,7 @@ function App() {
   return (
     <>
       <NavigationRouter />
+      <ScrollToTop />
       <AnimatePresence mode="wait">
         <Routes location={location} key={location.pathname}>
           <Route

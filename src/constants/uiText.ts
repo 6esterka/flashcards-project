@@ -56,6 +56,7 @@ export const uiText = {
       arrowSign: "→",
       lastPracticedText: "Last practiced: Just now",
     },
+    noDecksText: "No decks found.",
   },
   general: {
     goBackButtonArrow: "←",

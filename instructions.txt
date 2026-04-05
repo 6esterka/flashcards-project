@@ -2,3 +2,36 @@ Command to run Playwright test
 npx playwright test --ui
 Command to run RTL test 
 npx vitest run
+
+TODO List of tests that should be written 
+Here's a clear breakdown:
+
+  ---
+  RTL Tests (unit/component level)
+
+  These test individual components in isolation — fast, no browser needed.
+
+  - FilterButtons — renders all 3 options, active style matches currentFilter prop, calls onFilterChange with correct value on click
+  - ProgressStats — displays correct learned/total count, renders nothing when cards is empty
+  - NavigationHomeControls — Previous disabled at index 0, Next disabled at last card, Learned button disabled when card is already learned, card counter shows correct text
+  - NoFlashcardIndicator — renders the empty state message
+  - AddFlashcardForm — submit button disabled when inputs are empty, calls store's addCard and onClose on valid submit, does not submit on whitespace-only input
+  - EditFlashcardModal — pre-fills inputs with existing card data, calls updateCard with trimmed values on save, calls onClose when clicking the backdrop
+
+  ---
+  Playwright Tests (E2E, full user flows)
+
+  These test real user journeys through the app in a browser.
+
+  - Select a deck and navigate to study page — click a deck card on /, verify URL changes to /study/:groupName and cards are shown
+  - Filter cards — on study page, switch to "Learned" filter when no cards are learned → verify empty state shown; switch to "All" → cards reappear
+  - Mark card as learned — click "Learned" button, verify button becomes disabled, verify progress stat updates
+  - Add a new flashcard — open the form, fill in question + answer, submit, verify new card appears in the deck
+  - Navigate between cards — verify Previous is disabled on first card, Next is disabled on last card, counter updates correctly
+  - Navigate to Stats page — verify total mastery % is shown and bar chart is rendered
+  - Full flow: create deck via Generate page — enter a topic, submit (mock the API or use a real key), verify new deck appears in the library
+
+  ---
+  Rule of thumb for this project:
+  - RTL = "does this component render and behave correctly given these props?"
+  - Playwright = "can a user complete this workflow end-to-end?"

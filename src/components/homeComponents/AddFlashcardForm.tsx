@@ -35,10 +35,14 @@ export default function AddFlashcardForm({
         className="w-full max-w-md bg-white p-4 rounded shadow-md space-y-4 mt-6"
       >
         <div>
-          <label className="block text-sm font-medium text-gray-700">
+          <label
+            htmlFor="question-input"
+            className="block text-sm font-medium text-gray-700"
+          >
             {uiText.home.addCardForm.questionInputLabel}
           </label>
           <input
+            id="question-input"
             type="text"
             value={question}
             onChange={(event) => setQuestion(event.target.value)}
@@ -47,10 +51,14 @@ export default function AddFlashcardForm({
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700">
+          <label
+            htmlFor="answer-input"
+            className="block text-sm font-medium text-gray-700"
+          >
             {uiText.home.addCardForm.answerInputLabel}
           </label>
           <input
+            id="answer-input"
             type="text"
             value={answer}
             onChange={(event) => {

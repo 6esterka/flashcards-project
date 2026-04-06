@@ -13,10 +13,9 @@ Here's a clear breakdown:
 
   + FilterButtons — renders all 3 options, active style matches currentFilter prop, calls onFilterChange with correct value on click
   + ProgressStats — displays correct learned/total count, renders nothing when cards is empty
-  - NavigationHomeControls — Previous disabled at index 0, Next disabled at last card, Learned button disabled when card is already learned, card counter shows correct text
-  - NoFlashcardIndicator — renders the empty state message
-  - AddFlashcardForm — submit button disabled when inputs are empty, calls store's addCard and onClose on valid submit, does not submit on whitespace-only input
-  - EditFlashcardModal — pre-fills inputs with existing card data, calls updateCard with trimmed values on save, calls onClose when clicking the backdrop
+  + NavigationHomeControls — Previous disabled at index 0, Next disabled at last card, Learned button disabled when card is already learned, card counter shows correct text
+  + NoFlashcardIndicator — renders the empty state message
+  + AddFlashcardForm — submit button disabled when inputs are empty, calls store's addCard and onClose on valid submit, does not submit on whitespace-only input
 
   ---
   Playwright Tests (E2E, full user flows)

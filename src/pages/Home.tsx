@@ -5,7 +5,7 @@ import NavigationHomeControls from "@/components/homeComponents/NavigationHomeCo
 import { useFlashcards } from "@/hooks/useFlashcards";
 import AddFlashcardForm from "@/components/homeComponents/AddFlashcardForm";
 import LoadingIndicator from "@/components/homeComponents/LoadingIndicator";
-import NoFlashcardIndicator from "@/components/homeComponents/NoFlashcardComponent";
+import NoFlashcardIndicator from "@/components/homeComponents/NoFlashcardIndicator";
 import EditFlashcardModal from "@/components/homeComponents/EditFlashcardModal";
 import FilterButtons from "@/components/homeComponents/FilterButtons";
 import CreateFlashcardButton from "@/components/homeComponents/CreateFlashcardButton";

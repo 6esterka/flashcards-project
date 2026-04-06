@@ -2,6 +2,10 @@ import { render, screen } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 import NavigationHomeControls from "@/components/homeComponents/NavigationHomeControls";
 import type { Flashcard } from "@/types/flashcard";
+import { uiText } from "@/constants/uiText";
+
+const { previousButton, nextButton, learnedButton, cardCounter } =
+  uiText.home.navControls;
 
 describe("NavigationHomeControls", () => {
   const cards: Flashcard[] = [
@@ -25,6 +29,7 @@ describe("NavigationHomeControls", () => {
     },
   ];
   it("should disable Previous button when currentIndex is 0", () => {
+    // Given
     render(
       <NavigationHomeControls
         cards={cards}
@@ -34,13 +39,16 @@ describe("NavigationHomeControls", () => {
         currentIndex={0}
       />,
     );
-    expect(screen.getByRole("button", { name: "← Previous" })).toBeDisabled();
-    expect(screen.getByRole("button", { name: "Next →" })).toBeEnabled();
-    expect(screen.getByRole("button", { name: "✅ Learned" })).toBeEnabled();
-    expect(screen.getByText("Card 1 of 3")).toBeInTheDocument();
+
+    // Then
+    expect(screen.getByRole("button", { name: previousButton })).toBeDisabled();
+    expect(screen.getByRole("button", { name: nextButton })).toBeEnabled();
+    expect(screen.getByRole("button", { name: learnedButton })).toBeEnabled();
+    expect(screen.getByText(cardCounter(0, cards.length))).toBeInTheDocument();
   });
 
   it("should disable Next button when currentIndex is at the last card", () => {
+    // Given
     render(
       <NavigationHomeControls
         cards={cards}
@@ -50,13 +58,18 @@ describe("NavigationHomeControls", () => {
         currentIndex={cards.length - 1}
       />,
     );
-    expect(screen.getByRole("button", { name: "← Previous" })).toBeEnabled();
-    expect(screen.getByRole("button", { name: "Next →" })).toBeDisabled();
-    expect(screen.getByRole("button", { name: "✅ Learned" })).toBeEnabled();
-    expect(screen.getByText("Card 3 of 3")).toBeInTheDocument();
+
+    // Then
+    expect(screen.getByRole("button", { name: previousButton })).toBeEnabled();
+    expect(screen.getByRole("button", { name: nextButton })).toBeDisabled();
+    expect(screen.getByRole("button", { name: learnedButton })).toBeEnabled();
+    expect(
+      screen.getByText(cardCounter(cards.length - 1, cards.length)),
+    ).toBeInTheDocument();
   });
 
   it("should disable Learned button when current card is already learned", () => {
+    // Given
     render(
       <NavigationHomeControls
         cards={cards}
@@ -66,9 +79,11 @@ describe("NavigationHomeControls", () => {
         currentIndex={1}
       />,
     );
-    expect(screen.getByRole("button", { name: "← Previous" })).toBeEnabled();
-    expect(screen.getByRole("button", { name: "Next →" })).toBeEnabled();
-    expect(screen.getByRole("button", { name: "✅ Learned" })).toBeDisabled();
-    expect(screen.getByText("Card 2 of 3")).toBeInTheDocument();
+
+    // Then
+    expect(screen.getByRole("button", { name: previousButton })).toBeEnabled();
+    expect(screen.getByRole("button", { name: nextButton })).toBeEnabled();
+    expect(screen.getByRole("button", { name: learnedButton })).toBeDisabled();
+    expect(screen.getByText(cardCounter(1, cards.length))).toBeInTheDocument();
   });
 });

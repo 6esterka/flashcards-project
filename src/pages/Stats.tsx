@@ -44,7 +44,9 @@ export default function Stats() {
           <p className="text-slate-400 text-sm font-medium">
             {uiText.stats.totalMasteryTitle}
           </p>
-          <h3 className="text-3xl font-bold text-[#556cd6]">{totalMastery}%</h3>
+          <h3 className="text-3xl font-bold text-[#556cd6]">
+            {uiText.stats.totalMasteryPercentage(totalMastery)}
+          </h3>
         </div>
       </div>
 

@@ -1,16 +1,18 @@
 import { useState, useEffect, useMemo } from "react";
+import { useParams } from "react-router-dom";
 import { FilterOption } from "@/enums/filterOption";
 import { useFlashcardStore } from "@/store/useFlashcardStore";
 
 export function useFlashcards() {
   //Zustand Store
-  const selectedGroupName = useFlashcardStore(
-    (store) => store.selectedGroupName,
-  );
-  //TODO Put instead store.decks["Custom Deck"] [] once I'll represent groupName selection
-  const cards = useFlashcardStore((store) =>
-    selectedGroupName ? store.decks[selectedGroupName] : [],
-  );
+  const { groupName: groupNameParam } = useParams<{ groupName: string }>();
+  const decks = useFlashcardStore((store) => store.decks);
+  const selectGroup = useFlashcardStore((store) => store.selectGroup);
+  const cards = groupNameParam ? (decks[groupNameParam] ?? []) : [];
+
+  useEffect(() => {
+    selectGroup(groupNameParam ?? null);
+  }, [groupNameParam, selectGroup]);
   const updateCard = useFlashcardStore((store) => store.updateCard);
   const resetStore = useFlashcardStore((store) => store.resetStore);
 
@@ -65,7 +67,7 @@ export function useFlashcards() {
     }, 800);
 
     return () => clearTimeout(timer);
-  }, [selectedGroupName]);
+  }, [groupNameParam]);
 
   return {
     filteredFlashcards,

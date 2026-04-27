@@ -21,6 +21,8 @@ function GroupCardComponent({
       animate={{ opacity: 1, y: 0 }}
       whileHover={{ y: -8 }}
       whileTap={{ scale: 0.98 }}
+      role="button"
+      tabIndex={0}
       onClick={() => onSelect(groupName)}
       className={clsx(
         "relative overflow-hidden cursor-pointer group",

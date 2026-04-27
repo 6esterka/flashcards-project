@@ -47,6 +47,7 @@ export const uiText = {
     pageRouteTitle: "Stats",
     totalMasteryTitle: "Total Mastery",
     learningProgressStatTitle: "Learning Progress by Deck",
+    totalMasteryPercentage: (percentage: number) => `${percentage}%`,
   },
   deckLibrary: {
     deckLibraryTitle: "Welcome to flashcards quiz",

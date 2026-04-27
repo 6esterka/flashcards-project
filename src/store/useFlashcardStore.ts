@@ -15,8 +15,8 @@ interface FlashcardStore {
   addCard: (question: string, answer: string) => void;
 }
 
-const INITIAL_DATA: Record<string, Flashcard[]> = {
-  "Custom Deck": [
+export const INITIAL_DATA: Record<string, Flashcard[]> = {
+  "custom deck": [
     {
       id: nanoid(),
       question: "What is the capital of France?",

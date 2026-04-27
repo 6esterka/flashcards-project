@@ -22,7 +22,7 @@ Here's a clear breakdown:
 
   These test real user journeys through the app in a browser.
 
-  - Select a deck and navigate to study page — click a deck card on /, verify URL changes to /study/:groupName and cards are shown
+  + Select a deck and navigate to study page — click a deck card on /, verify URL changes to /study/:groupName and cards are shown
   - Filter cards — on study page, switch to "Learned" filter when no cards are learned → verify empty state shown; switch to "All" → cards reappear
   - Mark card as learned — click "Learned" button, verify button becomes disabled, verify progress stat updates
   - Add a new flashcard — open the form, fill in question + answer, submit, verify new card appears in the deck
@@ -34,3 +34,10 @@ Here's a clear breakdown:
   Rule of thumb for this project:
   - RTL = "does this component render and behave correctly given these props?"
   - Playwright = "can a user complete this workflow end-to-end?"
+
+  So the structure would be:
+  integration/
+    dec-navigation.spec.ts        ✅ done
+    study-page.spec.ts            ✅ done(filter, mark learned, add card, navigate cards)
+    stats.spec.ts                 
+    generate.spec.ts

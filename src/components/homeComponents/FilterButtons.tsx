@@ -17,6 +17,7 @@ export default function FilterButtons({
           <button
             key={option}
             onClick={() => onFilterChange(option)}
+            aria-pressed={currentFilter === option}
             className={`relative z-10 px-5 py-1.5 text-[15px] font-semibold transition-all duration-300 ${
               currentFilter === option
                 ? "text-[#556cd6]"

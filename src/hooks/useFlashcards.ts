@@ -32,6 +32,12 @@ export function useFlashcards() {
     });
   }, [cards, filter]);
 
+  useEffect(() => {
+    setCurrentCardIndex((prev) =>
+      Math.min(prev, Math.max(filteredFlashcards.length - 1, 0)),
+    );
+  }, [filteredFlashcards.length]);
+
   const currentCard = filteredFlashcards[currentCardIndex] || null;
 
   //Handlers

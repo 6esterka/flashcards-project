@@ -9,6 +9,20 @@ import NoFlashcardIndicator from "@/components/homeComponents/NoFlashcardIndicat
 import EditFlashcardModal from "@/components/homeComponents/EditFlashcardModal";
 import FilterButtons from "@/components/homeComponents/FilterButtons";
 import CreateFlashcardButton from "@/components/homeComponents/CreateFlashcardButton";
+import { AnimatePresence, motion } from "framer-motion";
+
+function FadeIn({ children }: { children: React.ReactNode }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.15 }}
+    >
+      {children}
+    </motion.div>
+  );
+}
 
 export default function Home() {
   const {
@@ -40,16 +54,22 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center">
       <FilterButtons onFilterChange={setFilter} currentFilter={filter} />
-      {filteredFlashcards.length === 0 ? (
-        <NoFlashcardIndicator />
-      ) : (
-        <FlashcardComponent
-          card={currentCard}
-          onDelete={requestDeleteCard}
-          isBeingDeleted={pendingDeleteId}
-          onEdit={() => setEditingCardId(currentCard.id)}
-        />
-      )}
+      <AnimatePresence mode="wait">
+        {filteredFlashcards.length === 0 ? (
+          <FadeIn key="empty">
+            <NoFlashcardIndicator />
+          </FadeIn>
+        ) : (
+          <FadeIn key={currentCard?.id}>
+            <FlashcardComponent
+              card={currentCard}
+              onDelete={requestDeleteCard}
+              isBeingDeleted={pendingDeleteId}
+              onEdit={() => setEditingCardId(currentCard.id)}
+            />
+          </FadeIn>
+        )}
+      </AnimatePresence>
       <NavigationHomeControls
         currentIndex={currentCardIndex}
         cards={filteredFlashcards}

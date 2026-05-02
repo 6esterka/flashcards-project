@@ -15,7 +15,7 @@ export default function Generate() {
     setTopic,
   } = useGenerateFlashcards();
   return (
-    <div className="p-6 max-w-lg mx-auto">
+    <div className="min-h-screen bg-bg-page p-6 max-w-lg mx-auto">
       <h1 className="text-2xl font-bold mb-4 text-center">
         {uiText.generate.pageTitle}
       </h1>
@@ -26,7 +26,7 @@ export default function Generate() {
           placeholder={uiText.generate.inputPlaceHolder}
           value={topic}
           onChange={(e) => setTopic(e.target.value)}
-          className="border border-gray-300 p-2 rounded"
+          className="border border-border bg-bg-surface text-text-primary p-2 rounded"
         />
         <Button
           type="submit"

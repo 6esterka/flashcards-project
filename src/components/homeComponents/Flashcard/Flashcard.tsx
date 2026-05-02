@@ -24,9 +24,9 @@ export default function FlashcardComponent({
   const baseClasses =
     "absolute w-full h-full backface-hidden flex items-center justify-center p-4 rounded-xl transition-all duration-500";
   const frontClasses =
-    "bg-white border-2 border-[#556cd6] shadow-md cursor-pointer";
+    "bg-bg-surface border-2 border-primary shadow-md cursor-pointer";
   const backClasses =
-    "bg-[#3b4cc0] border-2 border-[#2f3a9a] shadow-md flex items-center justify-center text-gray-100";
+    "bg-card-back border-2 border-card-back shadow-md flex items-center justify-center text-text-primary";
 
   return (
     <div

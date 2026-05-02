@@ -39,5 +39,5 @@ Here's a clear breakdown:
   integration/
     dec-navigation.spec.ts        ✅ done
     study-page.spec.ts            ✅ done(filter, mark learned, add card, navigate cards)
-    stats.spec.ts                 
-    generate.spec.ts
+    stats.spec.ts                 ✅ done
+    generate.spec.ts              X Not needed since it's related

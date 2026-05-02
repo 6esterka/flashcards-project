@@ -11,7 +11,7 @@ import FilterButtons from "@/components/homeComponents/FilterButtons";
 import CreateFlashcardButton from "@/components/homeComponents/CreateFlashcardButton";
 import { AnimatePresence, motion } from "framer-motion";
 
-function FadeIn({ children }: { children: React.ReactNode }) {
+function FadeIn({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -45,14 +45,14 @@ export default function Home() {
   } = useFlashcards();
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-100">
+      <div className="min-h-screen flex items-center justify-center bg-bg-page">
         <LoadingIndicator />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center">
+    <div className="min-h-screen bg-bg-page flex flex-col items-center justify-center">
       <FilterButtons onFilterChange={setFilter} currentFilter={filter} />
       <AnimatePresence mode="wait">
         {filteredFlashcards.length === 0 ? (

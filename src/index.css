@@ -2,6 +2,21 @@
 @tailwind components;
 @tailwind utilities;
 
+html,
+body {
+  background-color: var(--color-bg-page);
+  color: var(--color-text-primary);
+}
+
+.theme-transitioning *,
+.theme-transitioning *::before,
+.theme-transitioning *::after {
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease,
+    border-color 0.3s ease !important;
+}
+
 .perspective {
   perspective: 1000px;
 }
@@ -31,4 +46,45 @@
 
 .animate-ripple {
   animation: ripple 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+:root {
+  /* Brand */
+  --color-primary: #556cd6;
+  --color-accent: #e76f51;
+  --color-secondary: #f4a261;
+
+  /* Backgrounds */
+  --color-bg-page: #f8f9fc;
+  --color-bg-surface: #ffffff;
+  --color-card-back: #3b4cc0;
+
+  /* Text */
+  --color-text-primary: #111827;
+  --color-text-secondary: #4b5563;
+  --color-text-muted: #6b7280;
+
+  /* Borders & focus */
+  --color-border: #d1d5db;
+  --color-ring: #556cd6;
+
+  /* Feedback */
+  --color-success: #22c55e;
+  --color-danger: #ef4444;
+}
+
+[data-theme="dark"] {
+  --color-bg-page: #0f1117;
+  --color-bg-surface: #1e2030;
+  --color-card-back: #2a3580;
+
+  --color-text-primary: #e2e8f0;
+  --color-text-secondary: #94a3b8;
+  --color-text-muted: #64748b;
+
+  --color-border: #2d3748;
+  --color-ring: #556cd6;
+
+  --color-success: #4ade80;
+  --color-danger: #f87171;
 }

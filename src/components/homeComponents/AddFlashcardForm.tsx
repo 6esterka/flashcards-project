@@ -32,12 +32,12 @@ export default function AddFlashcardForm({
       <form
         onClick={(e) => e.stopPropagation()}
         onSubmit={handleSubmit}
-        className="w-full max-w-md bg-white p-4 rounded shadow-md space-y-4 mt-6"
+        className="w-full max-w-md bg-bg-surface p-4 rounded shadow-md space-y-4 mt-6"
       >
         <div>
           <label
             htmlFor="question-input"
-            className="block text-sm font-medium text-gray-700"
+            className="block text-sm font-medium text-text-secondary"
           >
             {uiText.home.addCardForm.questionInputLabel}
           </label>
@@ -46,14 +46,14 @@ export default function AddFlashcardForm({
             type="text"
             value={question}
             onChange={(event) => setQuestion(event.target.value)}
-            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+            className="mt-1 block w-full px-3 py-2 bg-bg-surface text-text-primary border border-border rounded-md shadow-sm focus:outline-none focus:ring-ring focus:border-ring"
             placeholder={uiText.home.addCardForm.questionInputPlaceholder}
           />
         </div>
         <div>
           <label
             htmlFor="answer-input"
-            className="block text-sm font-medium text-gray-700"
+            className="block text-sm font-medium text-text-secondary"
           >
             {uiText.home.addCardForm.answerInputLabel}
           </label>
@@ -64,7 +64,7 @@ export default function AddFlashcardForm({
             onChange={(event) => {
               setAnswer(event.target.value);
             }}
-            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+            className="mt-1 block w-full px-3 py-2 bg-bg-surface text-text-primary border border-border rounded-md shadow-sm focus:outline-none focus:ring-ring focus:border-ring"
           />
         </div>
         <Button

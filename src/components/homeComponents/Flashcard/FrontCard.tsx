@@ -16,7 +16,7 @@ export default function FrontCard({
   return (
     <div
       className="absolute w-full h-full 
-        backface-hidden bg-white border border-gray-300 rounded-xl shadow-md flex items-center justify-center 
+        backface-hidden bg-bg-surface border border-border rounded-xl shadow-md flex items-center justify-center 
         p-4 text-lg font-semibold"
     >
       <RemoveCardButton cardId={card.id} onDelete={onDelete} />

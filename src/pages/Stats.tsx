@@ -37,22 +37,22 @@ export default function Stats() {
     return percent;
   }, [decks]);
   return (
-    <div className="p-6 space-y-8">
+    <div className="min-h-screen bg-bg-page p-6 space-y-8">
       {/* 1. Total Mastery */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <div className="bg-white p-6 rounded-[2rem] shadow-sm border border-slate-100">
-          <p className="text-slate-400 text-sm font-medium">
+        <div className="bg-bg-surface p-6 rounded-[2rem] shadow-sm border border-border">
+          <p className="text-text-muted text-sm font-medium">
             {uiText.stats.totalMasteryTitle}
           </p>
-          <h3 className="text-3xl font-bold text-[#556cd6]">
+          <h3 className="text-3xl font-bold text-primary">
             {uiText.stats.totalMasteryPercentage(totalMastery)}
           </h3>
         </div>
       </div>
 
       {/* 2. Main Progress Chart */}
-      <div className="bg-white p-8 rounded-[2rem] shadow-sm border border-slate-100 h-[400px]">
-        <h2 className="text-xl font-bold mb-6 text-slate-800">
+      <div className="bg-bg-surface p-8 rounded-[2rem] shadow-sm border border-border h-[400px]">
+        <h2 className="text-xl font-bold mb-6 text-text-primary">
           {uiText.stats.learningProgressStatTitle}
         </h2>
         <ResponsiveContainer width="100%" height="90%">
@@ -60,11 +60,13 @@ export default function Stats() {
             <XAxis dataKey="name" axisLine={false} tickLine={false} />
             <YAxis hide />
             <Tooltip
-              cursor={{ fill: "#f8fafc" }}
+              cursor={{ fill: "var(--color-border)" }}
               contentStyle={{
                 borderRadius: "16px",
                 border: "none",
                 boxShadow: "0 10px 15px -3px rgb(0 0 0 / 0.1)",
+                backgroundColor: "var(--color-bg-surface)",
+                color: "var(--color-text-primary)",
               }}
             />
             <Legend verticalAlign="top" align="right" iconType="circle" />

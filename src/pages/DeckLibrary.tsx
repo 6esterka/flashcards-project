@@ -3,12 +3,12 @@ import { uiText } from "@/constants/uiText";
 
 export default function DeckLibrary() {
   return (
-    <div className="flex flex-col h-screen bg-[#f8f9fc] p-6 lg:p-12">
+    <div className="flex flex-col h-screen bg-bg-page p-6 lg:p-12">
       <header className="mb-8">
-        <h1 className="text-4xl font-black text-gray-900 tracking-tight">
+        <h1 className="text-4xl font-black text-text-primary tracking-tight">
           {uiText.deckLibrary.deckLibraryTitle}
         </h1>
-        <p className="text-gray-500 font-medium mt-1">
+        <p className="text-text-muted font-medium mt-1">
           {uiText.deckLibrary.deckLibrarySelectInfo}
         </p>
       </header>

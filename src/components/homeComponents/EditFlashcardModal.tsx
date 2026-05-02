@@ -54,7 +54,7 @@ export default function EditFlashcardModal({
       <form
         onClick={(e) => e.stopPropagation()}
         onSubmit={onSaveButtonClickHandler}
-        className="bg-white rounded-lg p-6 max-w-md w-full shadow-lg"
+        className="bg-bg-surface rounded-lg p-6 max-w-md w-full shadow-lg"
       >
         <h2 className="text-xl font-semibold mb-4">
           {uiText.home.editCardForm.formTitle}
@@ -66,7 +66,7 @@ export default function EditFlashcardModal({
           type="text"
           value={question}
           onChange={(e) => setQuestion(e.target.value)}
-          className="w-full border border-gray-300 rounded px-3 py-2 mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full bg-bg-surface text-text-primary border border-border rounded px-3 py-2 mb-4 focus:outline-none focus:ring-2 focus:ring-ring"
         />
         <label className="block mb-2 font-medium">
           {uiText.home.editCardForm.answerInputLabel}
@@ -75,7 +75,7 @@ export default function EditFlashcardModal({
           type="text"
           value={answer}
           onChange={(e) => setAnswer(e.target.value)}
-          className="w-full border border-gray-300 rounded px-3 py-2 mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full bg-bg-surface text-text-primary border border-border rounded px-3 py-2 mb-4 focus:outline-none focus:ring-2 focus:ring-ring"
         />
         <div className="flex justify-center space-x-3">
           <Button variant="primary" type="submit">

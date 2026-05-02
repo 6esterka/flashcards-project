@@ -9,6 +9,7 @@ A flashcard study app with AI-powered deck generation, progress tracking, and le
 - **Statistics** — Visual learning progress charts per deck
 - **AI Generation** — Generate flashcard decks from any topic
 - **Card Management** — Add, edit, and delete cards within a deck
+- **Dark / Light Theme** — Toggle between themes with persistent preference via localStorage
 
 ## Tech Stack
 
